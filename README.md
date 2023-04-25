@@ -14,15 +14,15 @@ make init
 
 ## Run Server
 ```
-make run server
+make run-server
 ```
 
 ## Run Client
 ```
-make run client
+make run-client
 ```
 
 ## Pull code Server
 ```
-make pull server
+make pull-server
 ```

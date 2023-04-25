@@ -2,11 +2,11 @@ init:
 	cd backend_order_food_and_drink/ && npm i
 	cd frontend_order_food_and_drink/ && npm i
 
-run server:
+run-server:
 	cd backend_order_food_and_drink/ && node server.js && cd ..
 
-run client:
+run-client:
 	cd frontend_order_food_and_drink/ && npm run dev && cd ..
 
-pull server:
-	cd backend_order_food_and_drink/ && git pull
+pull-server:
+	cd backend_order_food_and_drink/ && git pull && cd ..
