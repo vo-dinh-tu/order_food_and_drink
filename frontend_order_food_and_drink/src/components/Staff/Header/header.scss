@@ -1,0 +1,25 @@
+@use '../../../scss/' as *;
+
+.slider__header{
+    width: 249px;
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s ease-in-out;
+
+    &-link{
+        padding: 24px;
+    }
+
+    &-logo{
+        width: 130px;
+    }
+
+    &-closeion{
+        padding: 26px;
+        width: 72px;
+        display:none;
+    }
+}
+
