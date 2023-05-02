@@ -25,6 +25,7 @@ h2{
   font-size: 24px;
   line-height: 24px;
   color: $heading-color;
+  letter-spacing: -0.012em;
 }
 
 p{
@@ -35,8 +36,24 @@ p{
   color: $text-color;
 }
 
+#root{
+  background-color: $bg-home;
+}
+
 .main-content{
   margin-left: 250px;
   transition: all 0.4s ease;
   background-color: #f6f7fd;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+.col {
+  padding-right: 12px;
+  padding-left: 12px;
 }
