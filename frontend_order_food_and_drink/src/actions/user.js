@@ -4,3 +4,10 @@ export const setUser = (user) => {
     payload: user
   };
 };
+
+export const visibilityCart= (isCart) => {
+  return {
+    type: "VISIBILITY_CART",
+    payload: isCart
+  };
+};

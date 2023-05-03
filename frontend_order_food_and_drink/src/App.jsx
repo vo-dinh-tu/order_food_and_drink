@@ -11,6 +11,7 @@ import Home from './pages/Customer/Home/Home';
 import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import Slider from './components/Staff/Slider/Slider';
+import Cart from './components/Customer/Cart/Cart';
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
       <>
         <Header />
         <Banner />
+        <Cart />
         <Routes>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
