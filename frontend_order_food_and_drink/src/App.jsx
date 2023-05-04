@@ -12,6 +12,7 @@ import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import Slider from './components/Staff/Slider/Slider';
 import Cart from './components/Customer/Cart/Cart';
+import Checkout from './pages/Customer/Checkout/Checkout';
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
           <Route path='/' element={<Home />}/>
+          <Route path='/checkout' element={<Checkout />} />
         </Routes>
         <Footer />
       </>
