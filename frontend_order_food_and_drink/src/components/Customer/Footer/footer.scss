@@ -3,7 +3,6 @@
 .footer{
     height: 137px;
     background-color: $green-color;
-    padding: 0 64px;
     text-align: center;
     hr {
         width: 80%;
@@ -18,7 +17,6 @@
         padding: 24px 0;
     }
     &__logo {
-        padding: 0 115px;
         font-family: 'Squada One', cursive;
         font-weight: 400;
         font-size: 32px;
@@ -28,28 +26,12 @@
         color: #FFFFFF;
         cursor: pointer;
     }
-    &__menu-bar {
-        ul {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-            margin: 0;
-            gap: 40px;
-            li a {
-                font-family: 'ABeeZee';
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 20px;
-                letter-spacing: -0.012em;
-                text-decoration: none;
-                color: #FFFFFF;
-                cursor: pointer;
-                &:hover {
-                    color: #F3BA00;
-                }
-            }
-        }
+    &__menu-text {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 20px;
+        letter-spacing: -0.012em;
+        color: $white-color;
     }
     &__social {
         display: flex;

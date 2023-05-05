@@ -1,14 +1,14 @@
 @use '../../../scss/' as *;
 
 .header{
-    height: 80px;
     background-color: $green-color;
-    padding: 0 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+    }
     &__logo {
-        padding: 0 115px;
         font-family: 'Squada One', cursive;
         font-weight: 400;
         font-size: 32px;
@@ -17,30 +17,12 @@
         text-decoration: none;
         color: #FFFFFF;
         cursor: pointer;
-    }
-    &__menu-bar {
-        ul {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-            margin: 0;
-            gap: 40px;
-            li a {
-                font-family: 'ABeeZee';
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 20px;
-                letter-spacing: -0.012em;
-                text-decoration: none;
-                color: #FFFFFF;
-                cursor: pointer;
-                &:hover {
-                    color: #F3BA00;
-                }
-            }
+
+        &:hover{
+            color: $yellow-color;
         }
     }
+   
     &__feature {
         display: flex;
         justify-content: space-between;
@@ -56,8 +38,39 @@
                 }
             }
         }
-        &-search, &-cart {
+        &-cart {
             cursor: pointer;
+        }
+
+        &-login{
+            a{
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 20px;
+                letter-spacing: -0.012em;
+                color: $white-color;
+                text-decoration: none;
+                
+                &:hover{
+                    color: $yellow-color;
+                }
+            }
+
+            span{
+                color: $white-color;
+                margin: 0 4px;
+            }
+        }
+
+        &-user{
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 20px;
+            color: $white-color;
+
+            &:hover{
+                color: $yellow-color;
+            }
         }
     }
 }
