@@ -11,3 +11,10 @@ export const visibilityCart= (isCart) => {
     payload: isCart
   };
 };
+
+export const getCategoryId = (categoryId) => {
+  return {
+    type: "GET_CATEGORY_ID",
+    payload: categoryId.toString()
+  };
+};

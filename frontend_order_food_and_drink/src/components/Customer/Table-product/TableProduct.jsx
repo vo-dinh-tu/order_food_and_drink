@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import pizza from '../../../assets/img/pizza.jpg';
 import './tableProduct.scss';
 
-function TableProduct(props) {
+function TableProduct({cart}) {
     return (
         <Table>
             <thead>

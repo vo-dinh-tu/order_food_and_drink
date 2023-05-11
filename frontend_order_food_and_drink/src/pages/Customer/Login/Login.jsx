@@ -5,13 +5,13 @@ import { useNavigate  } from "react-router-dom";
 import './login.scss';
 
 function Login() {
+    const [accessToken, setAccessToken] = useState(null);
     const [validated, setValidated] = useState(true);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         page: 'user'
     });
-    const [accessToken, setAccessToken] = useState('');
 
     const navigate = useNavigate();
 
@@ -35,7 +35,9 @@ function Login() {
         }
     }
 
-    if(accessToken) loginAccessToken();
+    if(accessToken) {
+        loginAccessToken();
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -49,9 +51,9 @@ function Login() {
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
-
             if(response.ok){
                 setAccessToken(data.accessToken);
+                sessionStorage.setItem('accessToken', JSON.stringify(data.accessToken));
             }
         }
     }

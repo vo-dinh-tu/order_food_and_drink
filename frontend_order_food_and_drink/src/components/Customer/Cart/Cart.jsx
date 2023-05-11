@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
-import {Table} from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {visibilityCart} from '../../../actions/user';
 
 import TableProduct from '../Table-product/TableProduct';
 import './cart.scss';
+import { fetchCart } from '../../../actions/cart';
 
-function Cart(props) {
+function Cart({accessToken}) {
+    const [cart, setCart] = useState([]);
     const isCart = useSelector(state => state.user.isCart);
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        fetchCart([], accessToken);
+    },[]);
 
     function handleHiddenCart(){
         const action = visibilityCart(!isCart);
@@ -39,20 +44,29 @@ function Cart(props) {
                     <h3>Giỏ hàng</h3>
                 </div>
 
-                <div className="cart-main">
-                    <TableProduct />
-                </div>
+                {cart ? (
+                    <>
+                        <div className="cart-main">
+                            <TableProduct cart={cart}/>
+                        </div>
 
-                <div className='cart-footer'>
-                    <div className='cart-payment'>
-                        <span>Tổng thanh toán</span>
-                        <span>40.000 đ</span>
-                    </div>
+                        <div className='cart-footer'>
+                            <div className='cart-payment'>
+                                <span>Tổng thanh toán</span>
+                                <span>40.000 đ</span>
+                            </div>
 
-                    <button className="cart-payment-btn">
-                        Thanh toán
-                    </button>
-                </div>
+                            <button className="cart-payment-btn">
+                                Thanh toán
+                            </button>
+                        </div>
+                    </>
+                )
+                    :
+                    <div>Không có giỏ hàng</div>
+                    
+                }
+
             </div>
         </>
     );

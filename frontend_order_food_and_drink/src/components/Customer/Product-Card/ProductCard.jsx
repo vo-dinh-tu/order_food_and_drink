@@ -1,27 +1,38 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import pizza from '../../../assets/img/pizza.jpg';
 import './productCard.scss';
+import { fetchCart } from '../../../actions/cart';
 
-function ProductCard(props) {
+function ProductCard({items}) {
+    const {id, image, name, price} = items;
+    const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+    
+    const addProductInCart = (idProduct) =>{    
+        // let itemProduct = [{"id": idProduct, "qty": 1}];
+        // fetchCart(itemProduct, accessToken);
+    }
+
+
     return (
         <Col>
             <div className='product-card'>
-                <div className="product-img">
+                <Link path='/' className="product-img">
                     <img src={pizza} alt="pizza" />
-                </div>
+                </Link>
                 <div className="product-info">
                     <div className="product-info-left">
                         <span className='product-name'>
-                            Pizza
+                            {name}
                         </span>
                     </div>
                     <div className="product-info-right">
                         <span className='product-price'>
-                            20.000 đ
+                            {price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                         </span>
-                        <div className='btn btn-add-cart'>
+                        <div className='btn btn-add-cart' onClick={() => addProductInCart(id)}>
                             <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.5" y="0.5" width="22" height="20" rx="5" fill="#BEBEBE"/>
                                 <rect x="0.5" y="0.5" width="22" height="20" rx="5" fill="#BEBEBE"/>

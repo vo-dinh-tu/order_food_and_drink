@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row} from 'react-bootstrap';
 
 import ProductCard from '../Product-Card/ProductCard';
 import './ProductList.scss';
 
 function ProductList(props) {
+    const [products, setProducts] = useState();
+    const categoryId = useSelector(state => state.user.categoryId);
+
+    const fetchProducts = async () =>{
+        if(categoryId){
+            const response = await fetch(`/api/product/category/${categoryId}`);
+            const data = await response.json();
+    
+            if (data.length > 0) {
+                setProducts(data);
+            }
+        }
+    }
+
+    useEffect(()=>{
+        fetchProducts();
+    },[categoryId]);
+
     return (
         <div className='product-list'>
             <Row>
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                {products && (
+                    products.map((product, index)=>{
+                        if(product.is_active){                     
+                            return <ProductCard key={index} items={product}/>
+                        }
+                    })
+                )}
             </Row>
         </div>
     );

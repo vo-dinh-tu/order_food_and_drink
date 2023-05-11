@@ -9,8 +9,11 @@
 .product-card{
     background-color: $white-color;    
     border-radius: 10px 10px;
-    cursor: pointer;
 
+    a{
+        text-decoration: none;
+    }
+    
     img{
         width: 100%;
     }
