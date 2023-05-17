@@ -7,6 +7,7 @@ import Contact from '../../../components/Customer/Contact/Contact';
 import Category from '../../../components/Customer/Category/Category';
 import Cart from '../../../components/Customer/Cart/Cart';
 import { getCategoryId } from '../../../actions/user';
+
 import './home.scss';
 
 function Home(props) {
@@ -36,7 +37,7 @@ function Home(props) {
 
     return (
         <>
-            {/* <Cart accessToken={accessToken}/> */}
+            <Cart accessToken={accessToken}/>
             <Container className='block-product'>
                 <h2>Nổi bật hôm nay</h2>
                 <Category categories={categories}/>

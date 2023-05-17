@@ -3,9 +3,13 @@
 table{
     th{
         font-weight: 500;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 20px;
         color: $text-cart;
+
+        &:last-child{
+            text-align: center;
+        }
     }
 
     tr{
@@ -16,9 +20,14 @@ table{
         vertical-align: middle;
         padding: 20px 10px 20px;
         
+        button{
+            border: none;
+            background-color: unset;
+        }
+
         span{
             font-weight: 400;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 18px;
             color: $text-cart;
         }
@@ -28,26 +37,22 @@ table{
             margin-right: 10px;
         }
 
-        .quantity-group{
+        .product-quantity{
+            display: block;
+            text-align: center;
+        }
+
+        .product-action{
             display: flex;
             align-items: center;
+            gap: 10px;
 
-            .minus, .plus, input[name='quantity']{
-                width: 30px;
-                height: 30px;
-                background-color: $quantity-cart;
-                text-align: center;
+            &-update:hover{
+                color: $green-color;
             }
 
-            .minus,.plus{
-                cursor: pointer;
-            }
-
-            input[name='quantity']{
-                border-left: 1px solid $white-color;
-                border-right: 1px solid $white-color;
-                border-bottom: none;
-                border-top: none;
+            &-delete:hover{
+                color: $red-color;
             }
         }
     }

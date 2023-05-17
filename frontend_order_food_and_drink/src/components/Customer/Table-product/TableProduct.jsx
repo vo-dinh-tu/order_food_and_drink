@@ -1,76 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
 import pizza from '../../../assets/img/pizza.jpg';
 import './tableProduct.scss';
+import PopupUpdateCart from '../PopupUpdateCart/PopupUpdateCart';
+import { fetchGetCart, fetchDeleteCart } from '../../../actions/cart';
+import {setCartStore, setCartItems} from '../../../actions/user';
 
-function TableProduct({cart}) {
+function TableProduct({cartItems}) {
+    const [modalShow, setModalShow] = useState(false);
+    const [itemCart, setItemCart] = useState(null);
+    const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+    const dispatch = useDispatch();
+
+    const handleOpenPopup = (item) =>{
+        setItemCart(item);
+        setModalShow(true);
+    }
+
+    const handleHidePopup = () =>{
+        setModalShow(false);
+    }
+
+    const handleDeleteItemCart = async (cartItemId) =>{
+        if(accessToken && cartItemId) await fetchDeleteCart(accessToken, cartItemId);
+
+        if (accessToken) {
+            const getItemsCart = async ()=>{
+                const response = await fetchGetCart(accessToken);
+                const data = await response.json();
+    
+                if(data){
+                    const cartAction = setCartStore(data.cart);
+                    const cartItemsAction = setCartItems(data.cartItems);
+                    dispatch(cartAction);
+                    dispatch(cartItemsAction);
+                }
+            }
+    
+            getItemsCart();
+        }
+    }
+
     return (
-        <Table>
-            <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Số tiền</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src={pizza} alt="" />
+        <>
+            <PopupUpdateCart
+                show={modalShow}
+                onHide={() => handleHidePopup()}
+                itemcart={itemCart}
+            />
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Số tiền</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        cartItems.map((item, index)=>{
+                            const {id, cart_id, product_id, product_name, product_image ,price, qty, totalPrice} = item;
+                            return (
+                                <tr key={index}>
+                                    <td>
+                                        <img src={pizza} alt="" />
 
-                        <span className='product-name'>Home made pizza 12’</span>
-                    </td>
-                    <td>
-                        <div className='quantity-group'>
-                            <div className="minus">
-                                <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.93103 0H0V1.47826H5.93103V0Z" fill="#1AC073"/>
-                                </svg>
-                            </div>
-                            <input type="text" name='quantity' value={1} />
-                            <div className="plus">
-                                <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.93103 2.21741H0V3.69567H5.93103V2.21741Z" fill="#1AC073"/>
-                                    <path d="M3.70673 5.91304L3.70673 0L2.22397 0V5.91304H3.70673Z" fill="#1AC073"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span className='product-price'>20.000 đ</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src={pizza} alt="" />
-
-                        <span className='product-name'>Home made pizza 12’</span>
-                    </td>
-                    <td>
-                        <div className='quantity-group'>
-                            <div className="minus">
-                                <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.93103 0H0V1.47826H5.93103V0Z" fill="#1AC073"/>
-                                </svg>
-                            </div>
-                            <input type="text" name='quantity' value={1} />
-                            <div className="plus">
-                                <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.93103 2.21741H0V3.69567H5.93103V2.21741Z" fill="#1AC073"/>
-                                    <path d="M3.70673 5.91304L3.70673 0L2.22397 0V5.91304H3.70673Z" fill="#1AC073"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span className='product-price'>20.000 đ</span>
-                    </td>
-                </tr>
-
-            </tbody>
-        </Table>
+                                        <span className='product-name'>{product_name}</span>
+                                    </td>
+                                    <td>
+                                        <span className='product-quantity'>{qty}</span>
+                                    </td>
+                                    <td>
+                                        <span className='product-price'>{price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                    </td>
+                                    <td>
+                                        <div className="product-action">
+                                            <button className='product-action-update' variant="primary" onClick={() => handleOpenPopup(item)}>
+                                                Cập nhập
+                                            </button>
+                                            <span>|</span>
+                                            <button className='product-action-delete' onClick={()=>handleDeleteItemCart(id)}>
+                                                Xóa 
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </Table>
+        </>
     );
 }
 

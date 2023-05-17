@@ -1,25 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {visibilityCart} from '../../../actions/user';
 
 import TableProduct from '../Table-product/TableProduct';
+import { fetchGetCart } from '../../../actions/cart';
+import {setCartItems, setCartStore, visibilityCart} from '../../../actions/user';
 import './cart.scss';
-import { fetchCart } from '../../../actions/cart';
 
 function Cart({accessToken}) {
-    const [cart, setCart] = useState([]);
     const isCart = useSelector(state => state.user.isCart);
+    const cart = useSelector(state => state.user.cart);
+    const cartItems = useSelector(state => state.user.cartItems);
     const dispatch = useDispatch();
-
-    useEffect(()=>{
-        fetchCart([], accessToken);
-    },[]);
 
     function handleHiddenCart(){
         const action = visibilityCart(!isCart);
         dispatch(action);
     }
 
+    useEffect(()=>{
+        if(accessToken){
+            const getItemsCart = async ()=>{
+                const response = await fetchGetCart(accessToken);
+                const data = await response.json();
+    
+                if(data){
+                    const cartAction = setCartStore(data.cart);
+                    const cartItemsAction = setCartItems(data.cartItems);
+                    dispatch(cartAction);
+                    dispatch(cartItemsAction);
+                }
+            }
+            getItemsCart();
+        }
+    }, []);
+    
     // toggle scroll body
     useEffect(()=>{
         if(isCart){
@@ -40,20 +54,21 @@ function Cart({accessToken}) {
                     </svg>
                 </div>
 
-                <div className="cart-title">
-                    <h3>Giỏ hàng</h3>
-                </div>
-
-                {cart ? (
+                {cartItems.length > 0 && cart ? (
                     <>
+                        <div className="cart-title">
+                            <h3>Giỏ hàng</h3>
+                        </div>
                         <div className="cart-main">
-                            <TableProduct cart={cart}/>
+                            <TableProduct cartItems={cartItems}/>
                         </div>
 
                         <div className='cart-footer'>
                             <div className='cart-payment'>
                                 <span>Tổng thanh toán</span>
-                                <span>40.000 đ</span>
+                                <span>
+                                    {cart.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                </span>
                             </div>
 
                             <button className="cart-payment-btn">
@@ -63,8 +78,7 @@ function Cart({accessToken}) {
                     </>
                 )
                     :
-                    <div>Không có giỏ hàng</div>
-                    
+                    <h4 className='cart-no-item'>Không có giỏ hàng</h4>
                 }
 
             </div>

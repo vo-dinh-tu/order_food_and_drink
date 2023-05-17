@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import { useNavigate  } from "react-router-dom";
 
 import './login.scss';
+import { fetchInitCart } from '../../../actions/cart';
 
 function Login() {
     const [accessToken, setAccessToken] = useState(null);
@@ -29,7 +30,7 @@ function Login() {
       
         const user = await response.json();
         
-        if(response.ok){
+        if(user){
             sessionStorage.setItem('user', JSON.stringify(user));
             navigate('/');
         }
@@ -37,6 +38,7 @@ function Login() {
 
     if(accessToken) {
         loginAccessToken();
+        fetchInitCart(accessToken);
     }
 
     const handleSubmit = async (event) => {

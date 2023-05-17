@@ -12,12 +12,10 @@ import Detail from './pages/Customer/Detail/Detail';
 import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import Slider from './components/Staff/Slider/Slider';
-import Cart from './components/Customer/Cart/Cart';
 import Checkout from './pages/Customer/Checkout/Checkout';
 
 function App() {
   const location = useLocation();
-
   if(location.pathname.includes('/staff')){
     return (
       <>
@@ -38,7 +36,6 @@ function App() {
       <>
         <Header />
         <Banner />
-        {/* <Cart /> */}
         <Routes>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>

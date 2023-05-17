@@ -1,25 +1,49 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate  } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import pizza from '../../../assets/img/pizza.jpg';
 import './productCard.scss';
-import { fetchCart } from '../../../actions/cart';
+import {setCartStore, setCartItems} from '../../../actions/user';
+import { fetchAddProductToCart, fetchGetCart } from '../../../actions/cart';
 
 function ProductCard({items}) {
     const {id, image, name, price} = items;
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     
-    const addProductInCart = (idProduct) =>{    
-        // let itemProduct = [{"id": idProduct, "qty": 1}];
-        // fetchCart(itemProduct, accessToken);
-    }
+    const addProductInCart = async (idProduct) =>{  
+        if(user && accessToken){
+            let itemProduct = [{id: idProduct, qty: 1}];
+            await fetchAddProductToCart(accessToken, itemProduct);
 
+                if (accessToken) {
+                    const getItemsCart = async ()=>{
+                        const response = await fetchGetCart(accessToken);
+                        const data = await response.json();
+
+                        if(data){
+                            const cartAction = setCartStore(data.cart);
+                            const cartItemsAction = setCartItems(data.cartItems);
+                            dispatch(cartAction);
+                            dispatch(cartItemsAction);
+                        }
+                    }   
+                    getItemsCart();
+                }
+        }else{
+            navigate('/login');
+        }
+    }
 
     return (
         <Col>
             <div className='product-card'>
-                <Link path='/' className="product-img">
+                <Link to={`/detail/${id}`} className="product-img">
                     <img src={pizza} alt="pizza" />
                 </Link>
                 <div className="product-info">
