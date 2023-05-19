@@ -1,67 +1,153 @@
-import React from 'react';
-import { Container, Form } from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import { Container, Form, Table } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
-import TableProduct from '../../../components/Customer/Table-product/TableProduct';
+import Cart from '../../../components/Customer/Cart/Cart';
+import PopupOrderSuccess from '../../../components/Customer/PopupOrderSuccess/PopupOrderSuccess';
+import pizza from '../../../assets/img/pizza.jpg';
+import { fetchGetCart } from '../../../actions/cart';
+import {setCartItems, setCartStore} from '../../../actions/user';
+import { fetchOrder, fetchPayment } from '../../../actions/order';
 import './checkout.scss';
 
 function Checkout(props) {
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [showPoppup, setShowPopup] = useState(false);
+    const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+    const cart = useSelector(state => state.user.cart);
+    const cartItems = useSelector(state => state.user.cartItems);
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        if(accessToken){
+            const getItemsCart = async ()=>{
+                const response = await fetchGetCart(accessToken);
+                const data = await response.json();
+    
+                if(data){
+                    const cartAction = setCartStore(data.cart);
+                    const cartItemsAction = setCartItems(data.cartItems);
+                    dispatch(cartAction);
+                    dispatch(cartItemsAction);
+                }
+            }
+            getItemsCart();
+        }
+    }, []);
+
+    const handleSelectPayment = (event)=>{
+        const paymentMethodValue = event.target.value;
+        setPaymentMethod(paymentMethodValue);
+    }
+
+    const handleOrder = async (event)=>{
+        event.preventdefault;
+        const cartId = cart.id;
+        let isSuccess = false;
+        
+        if(paymentMethod === '' || cartId === null) return;
+    
+        if(paymentMethod === 'cash'){
+            const data = await fetchOrder(cartId);
+
+            if(data.success) isSuccess = true;
+        }else{
+            const data = await fetchPayment(cartId);
+
+            if(data && data.paymentUrl !== ''){
+                window.location.href = `${data.paymentUrl}`;
+            }
+        }
+
+        if(isSuccess) return setShowPopup(true);
+    }
+
+    const handleHidePopup = () =>{
+        setShowPopup(false);
+    }
+
     return (
-        <div>
+        <>
+            <Cart accessToken={accessToken}/>
+            <PopupOrderSuccess 
+                show={showPoppup}
+                onHide={() => handleHidePopup()}
+                backdrop="static"
+            />
             <Container className='block-checkout'>
                 <div className="checkout-title">
                     <h2>Thanh toán</h2>
                 </div>
 
                 <div className="checkout-content">
-                    <form action="" >
-                        <TableProduct />
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Số tiền</th>
+                                <th>Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cartItems.map((item, index)=>{
+                                    const {id, cart_id, product_id, product_name, product_image ,price, qty, total_price} = item;
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <img src={pizza} alt="" />
 
-                        <div className="checkout-group">
-                            <div className="checkout-address">
-                                <label>Chọn địa chỉ giao hàng</label>
+                                                <span className='product-name'>{product_name}</span>
+                                            </td>
+                                            <td>
+                                                <span className='product-quantity'>{qty}</span>
+                                            </td>
+                                            <td>
+                                                <span className='product-price'>{price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                            </td>
+                                            <td>
+                                                <span className='product-price'>{total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
 
-                                <Form.Select name="city">
-                                    <option>Chọn tỉnh/thành phố</option>
-                                    <option>Hà Nội</option>
-                                </Form.Select>
-
-                                <Form.Select name="district">
-                                    <option>Chọn quận/huyên</option>
-                                    <option>Ba Vì</option>
-                                </Form.Select>
-
-                                <Form.Select name='ward'>
-                                    <option>Chọn phường/xã</option>
-                                    <option>Điện Bàn</option>
-                                </Form.Select>
-                            </div>
-
-                            <div className="checkout-box">
-                                <div className="box-group">
-                                    <label>Tổng tiền hàng</label>
-                                    <span>40.000 đ</span>
-                                </div>
-                                <div className="box-group">
-                                    <label>Phí ship</label>
-                                    <span>2.000 đ</span>
-                                </div>
-                                <hr />
-                                <div className="box-group">
-                                    <label className='title-order'>Tổng tiền hàng</label>
-                                    <span className='price-order'>42.000 đ</span>
-                                </div>
-
-                                <input className='btn-checkout' type="submit" value="Đặt Hàng" />
-                            </div>
+                    <div className="checkout-group">
+                        <div className="checkout-payment">
+                            <label>Chọn phương thức thanh toán</label>
+                            <Form.Select name="payment" onChange={handleSelectPayment}>
+                                <option value="">Phương thức thanh toán</option>
+                                <option value="cash">Trả bằng tiền mặt</option>
+                                <option value="transfer">Chuyển khoản ngân hàng</option>
+                            </Form.Select>
                         </div>
-                    </form>
 
-                    
+                        <div className="checkout-box">
+                            <div className="box-group">
+                                <label>Tổng tiền hàng</label>
+                                <span>{cart && cart.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                            </div>
+                            <div className="box-group">
+                                <label>Phí ship</label>
+                                <span>2.000 đ</span>
+                            </div>
+                            <hr />
+                            <div className="box-group">
+                                <label className='title-order'>Tổng tiền hàng</label>
+                                <span className='price-order'>{cart && cart.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                            </div>
+
+                            <button onClick={handleOrder} className='btn-checkout'>Đặt hàng</button>
+                        </div>
+                    </div>
                 </div>
             </Container>
-        </div>
+        </>
     );
 }
-
 
 export default Checkout;

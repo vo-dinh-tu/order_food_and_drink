@@ -48,6 +48,7 @@ function TableProduct({cartItems}) {
             <PopupUpdateCart
                 show={modalShow}
                 onHide={() => handleHidePopup()}
+                backdrop="static"
                 itemcart={itemCart}
             />
             <Table>

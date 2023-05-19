@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import TableProduct from '../Table-product/TableProduct';
 import { fetchGetCart } from '../../../actions/cart';
@@ -11,10 +12,17 @@ function Cart({accessToken}) {
     const cart = useSelector(state => state.user.cart);
     const cartItems = useSelector(state => state.user.cartItems);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    function handleHiddenCart(){
+    const handleHiddenCart = ()=>{
         const action = visibilityCart(!isCart);
         dispatch(action);
+    }
+
+    const handleNavigateCheckout = ()=>{
+        const action = visibilityCart(!isCart);
+        dispatch(action);
+        navigate('/checkout');
     }
 
     useEffect(()=>{
@@ -71,7 +79,7 @@ function Cart({accessToken}) {
                                 </span>
                             </div>
 
-                            <button className="cart-payment-btn">
+                            <button onClick={()=>handleNavigateCheckout()} className="cart-payment-btn">
                                 Thanh toán
                             </button>
                         </div>

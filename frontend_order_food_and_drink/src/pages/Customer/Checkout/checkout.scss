@@ -1,7 +1,7 @@
 @use '../../../scss/' as *;
 
 .block-checkout{
-    padding-top: 105px;
+    padding: 105px 0 100px;
 
     .checkout-title{
         background-color: $white-color;
@@ -46,7 +46,7 @@
             padding: 0 40px;
             margin-top: 80px;
 
-            .checkout-address{
+            .checkout-payment{
                 label{
                     font-weight: 400;
                     font-size: 18px;
