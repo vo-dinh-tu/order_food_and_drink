@@ -8,4 +8,24 @@
     transition: all 0.5s ease;
     background-color: #fff;
     z-index: 20;
+
+    &__header{
+        width: 249px;
+        height: 78px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.6s ease-in-out;
+        margin-bottom: 24px;
+    
+        &-logo{
+            width: 130px;
+        }
+    
+        &-closeion{
+            padding: 26px;
+            width: 72px;
+            display:none;
+        }
+    }
 }

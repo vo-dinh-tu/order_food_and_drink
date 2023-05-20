@@ -48,6 +48,10 @@ p{
   background-color: #f6f7fd;
 }
 
+.block-content{
+  padding: 30px 36px;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -58,4 +62,15 @@ p{
 .col {
   padding-right: 12px;
   padding-left: 12px;
+}
+
+.background-radius{
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.15);
+  border-radius: 20px;
+}
+
+.title-admin{
+  font-size: 24px;
+  color: #212B36;
+  margin:0 0 0 20px;
 }

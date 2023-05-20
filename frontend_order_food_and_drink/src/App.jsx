@@ -13,6 +13,8 @@ import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import Slider from './components/Staff/Slider/Slider';
 import Checkout from './pages/Customer/Checkout/Checkout';
+import CategoryAdd from './pages/Staff/Category/CategoryAdd';
+import HeaderStaff from './components/Staff/Header/Header';
 
 function App() {
   const location = useLocation();
@@ -21,14 +23,16 @@ function App() {
       <>
       <Slider />
         <div className="main-content">
-
-        <div className="content">
-          <Routes>
-            <Route path='/staff' element={<Staff />} />
-            <Route path='/staff/category' element={<Category />}/>
-          </Routes>
+          <HeaderStaff />
+          <div className="block-content">
+            <Routes>
+              <Route path='/staff' element={<Staff />} />
+              <Route path='/staff/category' element={<Category />}/>
+              <Route path='/staff/category/add' element={<CategoryAdd />}/>
+              <Route path='/staff/category/update' element={<CategoryAdd />}/>
+            </Routes>
+          </div>
         </div>
-      </div>
     </>
     )
   }else{

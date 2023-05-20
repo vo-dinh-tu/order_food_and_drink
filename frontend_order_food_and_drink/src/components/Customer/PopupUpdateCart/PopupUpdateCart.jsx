@@ -69,7 +69,7 @@ function PopupUpdateCart(props) {
             (
                 <Modal.Body>
                     <img className='modal__product-img' src={pizza} alt="" />
-                    <h4 class='modal__product-name'>{props.itemcart.product_name}</h4>
+                    <h4 className='modal__product-name'>{props.itemcart.product_name}</h4>
                     <div className='modal__product-update'>
                         <div className="minus" onClick={() => handleMinusProduct()}>
                             <svg width="8" height="4" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
