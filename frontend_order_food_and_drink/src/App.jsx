@@ -44,8 +44,8 @@ function App() {
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
           <Route path='/' element={<Home />}/>
-          <Route path='/detail' element={<Detail />}/>
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/detail/:id' element={<Detail />}/>
         </Routes>
         <Footer />
       </>

@@ -1,1 +1,97 @@
 @use '../../../scss/' as *;
+
+.product-details {
+    margin: 110px 65px;
+    width: 80%;
+    &__head {
+        display: flex;
+        gap: 36px;
+        margin-bottom: 60px;
+    }
+    &__images {
+        width: 30%;
+        img {
+            width: 100%;
+        }
+        &-sub {
+            width: 100%;
+            display: flex;
+            gap: 12px;
+            margin-top: 60px;
+            height: 86px;
+        }
+    }
+    &__options {
+        hr {
+            border-color: #F6F7F8;
+        }
+        &__name {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 30px;
+        }
+        &__price {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 180%;
+            letter-spacing: 0.5px;
+            color: #1AC073;
+        }
+        &__group {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            &-quantity {
+                display: flex;
+                justify-content: space-between;
+                height: 48px;
+                border-radius: 5px;
+                width: 130px;
+                background-color: #F6F7F8;
+                button {
+                    border: none;
+                    height: 100%;
+                    width: 40px;
+                    background-color: #F6F7F8;
+                }
+                input {
+                    height: 100%;
+                    border: none;
+                    text-align: center;
+                    width: 50px;
+                    background-color: #F6F7F8;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+            }
+        }
+    }
+    &__submit {
+        font-family: 'ABeeZee';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        padding: 16px;
+        color: #1AC073;
+        border: none;
+        border-radius: 5px;
+        svg {
+            margin-right: 16px;
+        }
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+}
