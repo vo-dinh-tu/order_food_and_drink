@@ -1,12 +1,16 @@
 @use '../../../scss/' as *;
 
+#root{
+    background-color: #FFFFFF;
+}
 .product-details {
-    margin: 110px 65px;
+    font-size: calc(20/1440*100vw);
+    margin: (110/20)+em (65/20)+em;
     width: 80%;
     &__head {
         display: flex;
-        gap: 36px;
-        margin-bottom: 60px;
+        gap: (36/20)+em;
+        margin-bottom: (60/20)+em;
     }
     &__images {
         width: 30%;
@@ -16,9 +20,9 @@
         &-sub {
             width: 100%;
             display: flex;
-            gap: 12px;
-            margin-top: 60px;
-            height: 86px;
+            gap: (12/20)+em;
+            margin-top: (60/20)+em;
+            height: (86/20)+em;
         }
     }
     &__options {
@@ -27,12 +31,12 @@
         }
         &__name {
             font-weight: 500;
-            font-size: 24px;
-            line-height: 30px;
+            font-size: (24/20)+em;
+            line-height: 125%;
         }
         &__price {
             font-weight: 700;
-            font-size: 20px;
+            font-size: 1em;
             line-height: 180%;
             letter-spacing: 0.5px;
             color: #1AC073;
@@ -41,29 +45,29 @@
             width: 100%;
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: (50/20)+em;
             &-quantity {
                 display: flex;
                 justify-content: space-between;
-                height: 48px;
-                border-radius: 5px;
-                width: 130px;
+                height: (48/20)+em;
+                border-radius: (5/20)+em;
+                width: (130/20)+em;
                 background-color: #F6F7F8;
                 button {
                     border: none;
                     height: 100%;
-                    width: 40px;
+                    width: (40/20)+em;
                     background-color: #F6F7F8;
                 }
                 input {
                     height: 100%;
                     border: none;
                     text-align: center;
-                    width: 50px;
+                    width: (50/16)+em;
                     background-color: #F6F7F8;
                     font-weight: 400;
-                    font-size: 16px;
-                    line-height: 19px;
+                    font-size: (16/20)+em;
+                    line-height: 125%;
                 }
             }
         }
@@ -72,14 +76,25 @@
         font-family: 'ABeeZee';
         font-style: normal;
         font-weight: 400;
-        font-size: 16px;
-        line-height: 19px;
-        padding: 16px;
+        font-size: (16/20)+em;
+        line-height: 125%;
+        padding: 1em;
         color: #1AC073;
         border: none;
-        border-radius: 5px;
+        border-radius: (5/16)+em;
         svg {
-            margin-right: 16px;
+            margin-right: 1em;
+        }
+    }
+
+    &__desc {
+        background: #FAFAFB;
+        padding: (32/20)+em;
+        &__title {
+            font-weight: 400;
+            font-size: (18/20)+em;
+            line-height: 125%;
+            color: #1AC073;
         }
     }
 
