@@ -15,7 +15,7 @@ const sliders=[
       name:'Danh mục',
     },
     {
-      url:'/staff/products',
+      url:'/staff/product',
     //   icon:<FaTable />,
       name:'Sản phẩm',
     },

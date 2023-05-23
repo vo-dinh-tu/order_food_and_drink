@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 
 function CategoryAdd(props) {
     const [name, setName] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
 
     const handleChange = (event)=>{
         const nameCate = event.target.value;
@@ -11,7 +11,7 @@ function CategoryAdd(props) {
     }
 
     const handelFileImage = (event)=>{
-        const imageCate = event.target.value;
+        const imageCate = event.target.files[0];
         setImage(imageCate);
     }
 
@@ -20,20 +20,28 @@ function CategoryAdd(props) {
 
         if(name !== '' && image !== ''){
             const formData = new FormData();
-            formData.append('name', name);
-            formData.append('image', image);
+            // formData.append('name', name);
+            formData.append('name', image);
 
-            const payload = {
-                image: formData.get('image'),
-                name: formData.get('name')
-            };
+            // const payload = {
+            //     image: formData.get('image'),
+            //     name: formData.get('name')
+            // };
 
+            // const payload ={
+            //     name: name,
+            //     file: image
+            // }
+            
             const response = await fetch('/api/category',{
                 method: 'post',
                 headers: {
-                    'Content-Type': 'application/json'
+                // //     // 'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data',
+                // //     'Accept': 'application/json',
+                // //     // 'boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'
                 },
-                body: JSON.stringify(payload)
+                body: formData
             });
 
             const data = await response.json();
@@ -67,18 +75,7 @@ function CategoryAdd(props) {
                         />
                     </Form.Group>
 
-                    {/* <Form.Group className="mb-4">
-                        <Form.Check
-                            required
-                            name="is_active"
-                            label="Trạng thái"
-                            defaultValue="no"
-                        />
-                    </Form.Group> */}
-
-                    <Button className='btn-add' type="submit">Thêm mới</Button>
-                    {/* <input type="submit" className='btn btn-login' value="Đăng nhập"/> */}
-                    
+                    <Button className='btn btn-add' type="submit">Thêm mới</Button>                    
                 </form>
             
             </div>

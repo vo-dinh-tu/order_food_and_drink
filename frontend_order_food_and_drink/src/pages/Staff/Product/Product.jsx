@@ -4,33 +4,33 @@ import { Link } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 
-import './category.scss';
+import './product.scss';
 
-function Category(props) {
-    const [categoryList, setCategoryList] = useState([]);
+function Product(props) {
+    const [productList, setProductList] = useState([]);
 
-    const fetchListCate = async () =>{
-        const response = await fetch('/api/category');
+    const fetchListProduct = async () =>{
+        const response = await fetch('/api/product');
         const data = await response.json();
         
-        if(data && data.length > 0) setCategoryList(data);
+        if(data && data.length > 0) setProductList(data);
     }
 
     useEffect(()=>{
-        fetchListCate();
+        fetchListProduct();
     },[]);
 
-    const handleDeleteCateItem = async (cateId)=>{
+    const handleDeleteProItem = async (proId)=>{
         const result = confirm('Bạn có muốn xóa');
 
-        if(result && cateId){
-            fetchDelete(cateId);
+        if(result && proId){
+            fetchDelete(proId);
             fetchListCate();
         }
     }
 
-    const fetchDelete = async (cateId) => {
-        const response = await fetch(`/api/category/${cateId}`,{
+    const fetchDelete = async (proId) => {
+        const response = await fetch(`/api/product/${proId}`,{
             method: 'delete',
         });
         const data = await response.json();
@@ -38,28 +38,29 @@ function Category(props) {
     }
 
     return (
-        <section className="block-category">
-            <h3 className="title-admin">Danh sách danh mục</h3>
+        <section className="block-product-staff">
+            <h3 className="title-admin">Danh sách sản phẩm</h3>
     
-            <div className="category-container background-radius">
-                <div className="category-add">
-                   <Link to='/staff/category/add'>Thêm mới</Link>
+            <div className="product-container background-radius">
+                <div className="product-add">
+                   <Link to='/staff/product/add'>Thêm mới</Link>
                 </div>
         
-                <Table className='category-table'>
+                <Table className='product-table'>
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên danh mục</th>
+                            <th>Tên sản phẩm</th>
                             <th>Hình ảnh</th>
+                            <th>Giá sản phẩm</th>
                             <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {categoryList && categoryList.length > 0 && (
-                            categoryList.map((cateItem, index)=>{
-                                const {id, name, image, is_active} = cateItem;
+                        {productList && productList.length > 0 && (
+                            productList.map((proItem, index)=>{
+                                const {id, name, image, price, is_active} = proItem;
 
                                 return(
                                     <tr key={index}>
@@ -71,14 +72,17 @@ function Category(props) {
                                             <image src={image} alt=""/>
                                         </td>
                                         <td>
-                                            <span className={`category-status ${is_active ? 'active' : 'inactive'}`}>{is_active ? 'active' : 'inactive'}</span>
+                                            {price}
                                         </td>
                                         <td>
-                                            <Link to={`/staff/category/update/${id}`}>
+                                            <span className={`product-status ${is_active ? 'active' : 'inactive'}`}>{is_active ? 'active' : 'inactive'}</span>
+                                        </td>
+                                        <td>
+                                            <Link to={`/staff/product/update/${id}`}>
                                                 <FaRegEdit className='icon-update'/>
                                             </Link>
 
-                                            <MdDelete onClick={()=>handleDeleteCateItem(id)} className='icon-delete'/>
+                                            <MdDelete onClick={()=>handleDeleteProItem(id)} className='icon-delete'/>
                                         </td>
                                     </tr>
                                 )
@@ -91,4 +95,4 @@ function Category(props) {
     );
 }
 
-export default Category;
+export default Product;
