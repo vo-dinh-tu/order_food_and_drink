@@ -6,7 +6,7 @@ import ProductCard from '../Product-Card/ProductCard';
 import './ProductList.scss';
 
 function ProductList(props) {
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
     const categoryId = useSelector(state => state.user.categoryId);
 
     const fetchProducts = async () =>{
@@ -16,6 +16,8 @@ function ProductList(props) {
     
             if (data.length > 0) {
                 setProducts(data);
+            }else{
+                setProducts([]);
             }
         }
     }

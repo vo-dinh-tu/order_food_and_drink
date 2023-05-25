@@ -20,7 +20,8 @@ function Home(props) {
         const data = await response.json();
 
         if (data) {
-            setCategories(data);
+            const categoryActive = data.filter((item)=>item.is_active);
+            if(categoryActive.length > 0) setCategories(categoryActive);
             
             const categoryFirst = data.find((item)=> {
                 if(item.is_active) return item.id;

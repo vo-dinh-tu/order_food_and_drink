@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getCategoryId } from '../../../actions/user';
 import './category.scss';
 
 function Category({categories}) {
+    const [indexActive, setIndexActive] = useState(0);
     const dispatch = useDispatch();
 
-    const handleGetCateId = (categoryId) =>{
+    const handleGetCateId = (categoryId, index) =>{
         const action = getCategoryId(categoryId);
         dispatch(action);
+        setIndexActive(index);
     }
 
     return (
@@ -17,14 +19,12 @@ function Category({categories}) {
             <ul className="category-list">
                 {
                     categories && (
-                        categories.map((cate)=>{
-                            const {id, name, is_active} = cate;
-                            
-                            if(is_active){
-                                return(
-                                    <li onClick={()=>handleGetCateId(id)} key={id} className='category-item active'>{name}</li>
-                                )
-                            }
+                        categories.map((cate,index)=>{
+                            const {id, name} = cate;
+
+                            return(
+                                <li onClick={()=>handleGetCateId(id, index)} key={id} className={`category-item ${index === indexActive ? "active" : ""}`}>{name}</li>
+                            )
                         })
                     )
                 }
