@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function CategoryAdd(props) {
     const [cateItem, setCateItem] = useState(null);
-    const [cateUpdate, setCateUpdate] = useState({
-        name: '',
-        image: '',
-        is_active: null
-    });
     const { id } = useParams();
+    const navigate = useNavigate();
  
     useEffect(()=>{
         if(id !== null && id !== undefined){
@@ -24,20 +20,23 @@ function CategoryAdd(props) {
         }
     },[]);
 
-    const handleUpdateCate = async () =>{
+    const handleUpdateCate = async (event) =>{
+        event.preventDefault();
+
         const response = await fetch(`/api/category/${id}`,{
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(cateUpdate)
+            body: JSON.stringify(cateItem)
         });        
         const data = await response.json();
-        return data;
+        
+        if(data) navigate('/staff/category');
     }
 
     return (
-        <section className="block-category" data-index="2">
+        <section className="block-category">
             <h3 className="title-admin">Cập nhập danh mục</h3>
     
             <div className="category-container background-radius">
@@ -49,8 +48,8 @@ function CategoryAdd(props) {
                                 // required
                                 type="text"
                                 name="name"
-                                value={cateUpdate.name !== '' ? cateUpdate.name : cateItem.name}
-                                onChange={(event)=> setCateUpdate({...cateUpdate, name: event.target.value})}
+                                value={cateItem.name}
+                                onChange={(event)=> setCateItem({...cateItem, name: event.target.value})}
                             />
                         </Form.Group>
 
@@ -69,9 +68,8 @@ function CategoryAdd(props) {
                                 // required
                                 name="is_active"
                                 label="Trạng thái"
-                                value={cateUpdate.is_active !== null ? !cateUpdate.is_active : !cateItem.is_active}
-                                checked={cateUpdate.is_active !== null ? cateUpdate.is_active : cateItem.is_active}
-                                onChange={(event)=> setCateUpdate({...cateUpdate, is_active: event.target.value === 'true' ? true : false})}
+                                checked={cateItem.is_active ? true : false}
+                                onChange={()=> setCateItem({...cateItem, is_active: !cateItem.is_active})}
                             />
                         </Form.Group>
 

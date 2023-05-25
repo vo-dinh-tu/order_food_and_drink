@@ -25,7 +25,7 @@ function Product(props) {
 
         if(result && proId){
             fetchDelete(proId);
-            fetchListCate();
+            fetchListProduct();
         }
     }
 

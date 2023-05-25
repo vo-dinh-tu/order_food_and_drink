@@ -5,12 +5,12 @@
 }
 .product-details {
     font-size: calc(20/1440*100vw);
-    margin: (110/20)+em (65/20)+em;
+    margin: calc(110/20)+em calc(65/20)+em;
     width: 80%;
     &__head {
         display: flex;
-        gap: (36/20)+em;
-        margin-bottom: (60/20)+em;
+        gap: calc(36/20)+em;
+        margin-bottom: calc(60/20)+em;
     }
     &__images {
         width: 30%;
@@ -20,9 +20,9 @@
         &-sub {
             width: 100%;
             display: flex;
-            gap: (12/20)+em;
-            margin-top: (60/20)+em;
-            height: (86/20)+em;
+            gap: calc(12/20)+em;
+            margin-top: calc(60/20)+em;
+            height: calc(86/20)+em;
         }
     }
     &__options {
@@ -31,7 +31,7 @@
         }
         &__name {
             font-weight: 500;
-            font-size: (24/20)+em;
+            font-size: calc(24/20)+em;
             line-height: 125%;
         }
         &__price {
@@ -45,28 +45,28 @@
             width: 100%;
             display: flex;
             align-items: center;
-            gap: (50/20)+em;
+            gap: calc(50/20)+em;
             &-quantity {
                 display: flex;
                 justify-content: space-between;
-                height: (48/20)+em;
-                border-radius: (5/20)+em;
-                width: (130/20)+em;
+                height: calc(48/20)+em;
+                border-radius: calc(5/20)+em;
+                width: calc(130/20)+em;
                 background-color: #F6F7F8;
                 button {
                     border: none;
                     height: 100%;
-                    width: (40/20)+em;
+                    width: calc(40/20)+em;
                     background-color: #F6F7F8;
                 }
                 input {
                     height: 100%;
                     border: none;
                     text-align: center;
-                    width: (50/16)+em;
+                    width: calc(50/16)+em;
                     background-color: #F6F7F8;
                     font-weight: 400;
-                    font-size: (16/20)+em;
+                    font-size: calc(16/20)+em;
                     line-height: 125%;
                 }
             }
@@ -76,12 +76,12 @@
         font-family: 'ABeeZee';
         font-style: normal;
         font-weight: 400;
-        font-size: (16/20)+em;
+        font-size: calc(16/20)+em;
         line-height: 125%;
         padding: 1em;
         color: #1AC073;
         border: none;
-        border-radius: (5/16)+em;
+        border-radius: calc(5/16)+em;
         svg {
             margin-right: 1em;
         }
@@ -89,10 +89,10 @@
 
     &__desc {
         background: #FAFAFB;
-        padding: (32/20)+em;
+        padding: calc(32/20)+em;
         &__title {
             font-weight: 400;
-            font-size: (18/20)+em;
+            font-size: calc(18/20)+em;
             line-height: 125%;
             color: #1AC073;
         }

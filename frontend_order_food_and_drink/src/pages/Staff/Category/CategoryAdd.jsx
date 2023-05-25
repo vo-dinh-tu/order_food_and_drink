@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function CategoryAdd(props) {
     const [name, setName] = useState('');
     const [image, setImage] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (event)=>{
         const nameCate = event.target.value;
@@ -19,33 +21,31 @@ function CategoryAdd(props) {
         event.preventDefault();
 
         if(name !== '' && image !== ''){
-            const formData = new FormData();
+            // const formData = new FormData();
             // formData.append('name', name);
-            formData.append('name', image);
+            // formData.append('name', image);
 
             // const payload = {
             //     image: formData.get('image'),
             //     name: formData.get('name')
             // };
 
-            // const payload ={
-            //     name: name,
-            //     file: image
-            // }
+            const payload ={
+                name: name,
+                file: image
+            }
             
             const response = await fetch('/api/category',{
                 method: 'post',
                 headers: {
-                // //     // 'Content-Type': 'application/json'
-                    'Content-Type': 'multipart/form-data',
-                // //     'Accept': 'application/json',
-                // //     // 'boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'multipart/form-data',
                 },
-                body: formData
+                body: JSON.stringify(payload)
             });
-
             const data = await response.json();
-            console.log(data);
+
+            if(data) navigate('/staff/category');
         }
     }
 

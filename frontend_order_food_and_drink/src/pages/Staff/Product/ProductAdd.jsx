@@ -1,15 +1,42 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, FloatingLabel  } from 'react-bootstrap';
-
+import { useNavigate } from 'react-router-dom';
 
 function ProductAdd(props) {
     const [categoryList, setCategoryList] = useState([]);
-    
+    const [productAdd, setProductAdd] = useState({
+        name: '',
+        category_id: '',
+        detail: '',
+        price: 0,
+        image: null,
+    });
+    const navigate = useNavigate();
+
     const fetchListCate = async () =>{
         const response = await fetch('/api/category');
         const data = await response.json();
         
         if(data && data.length > 0) setCategoryList(data);
+    }
+
+    const had =(event)=>{
+        console.log(event.target);
+    }
+
+    const handleSubmit = async () =>{
+        event.preventDefault();
+
+        const response = await fetch('/api/product',{
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productAdd)
+        });
+        const data = await response.json();
+
+        if(data) navigate('/staff/product');
     }
 
     useEffect(()=>{
@@ -21,11 +48,12 @@ function ProductAdd(props) {
             <h3 className="title-admin">Thêm mới sản phẩm</h3>
 
             <div className="product-container background-radius">
-                <form className='product-form'>
+                <form className='product-form' onSubmit={handleSubmit}>
                     <Form.Group className='mb-4'>
                         <Form.Label>Tên danh mục</Form.Label>
                         <Form.Control
                             // required
+                            onChange={(event)=>setProductAdd({...productAdd, name: event.target.value})}
                             type="text"
                             name="name"
                         />
@@ -33,18 +61,30 @@ function ProductAdd(props) {
 
                     <Form.Group className="position-relative mb-4">
                         <Form.Label>Danh mục</Form.Label>
-                        <Form.Select aria-label="Default select example">
+                        <Form.Select aria-label="Default select example" 
+                            onChange={(event)=>setProductAdd({...productAdd, category_id: event.target.value})}
+                        >
                             <option>Chọn danh mục</option>
                             {categoryList && (
                                 categoryList.map((cateItem, index)=>{
                                     const {id, name} = cateItem;
 
                                     return(
-                                        <option value={id}>{name}</option>
+                                        <option key={index} value={id}>{name}</option>
                                     )
                                 })
                             )}
                         </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className='mb-4'>
+                        <Form.Label>Giá sản phẩm</Form.Label>
+                        <Form.Control
+                            // required
+                            onChange={(event)=>setProductAdd({...productAdd, price: event.target.value})}
+                            type="number"
+                            name="price"
+                        />
                     </Form.Group>
 
                     <Form.Group className="position-relative mb-4">
@@ -63,6 +103,7 @@ function ProductAdd(props) {
                             as="textarea"
                             placeholder="Leave a comment here"
                             style={{ height: '200px' }}
+                            onChange={(event)=>setProductAdd({...productAdd, detail: event.target.value})}
                             />
                         </FloatingLabel>
                     </Form.Group>
