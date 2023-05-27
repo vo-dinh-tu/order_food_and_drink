@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Row} from 'react-bootstrap';
 
 import ProductCard from '../Product-Card/ProductCard';
-import './ProductList.scss';
+import './productList.scss';
 
 function ProductList(props) {
     const [products, setProducts] = useState([]);

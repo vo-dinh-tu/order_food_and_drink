@@ -21,27 +21,18 @@ function CategoryAdd(props) {
         event.preventDefault();
 
         if(name !== '' && image !== ''){
-            // const formData = new FormData();
-            // formData.append('name', name);
-            // formData.append('name', image);
-
-            // const payload = {
-            //     image: formData.get('image'),
-            //     name: formData.get('name')
-            // };
-
-            const payload ={
-                name: name,
-                file: image
-            }
+            const formData = new FormData();
+            formData.append("image", image);
+            formData.append("name", name);
             
             const response = await fetch('/api/category',{
                 method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                    // 'Content-Type': 'multipart/form-data',
-                },
-                body: JSON.stringify(payload)
+                // headers: {
+                //     // 'Content-Type': 'application/json'
+                //     'Content-Type': 'multipart/form-data',
+                // },
+                // body: JSON.stringify(payload)
+                body: formData
             });
             const data = await response.json();
 
