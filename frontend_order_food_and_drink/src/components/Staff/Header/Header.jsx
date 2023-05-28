@@ -10,6 +10,8 @@ import {
 import './header.scss';
 
 function Header(props) {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    
     return (
         <div className="header-staff">
             <div className="col-2">
@@ -32,8 +34,7 @@ function Header(props) {
                     <FaUserAlt />
                     <div className="header__user-profile">
                         <div className="user-profile-name">
-                            <h4>Admin</h4>
-            
+                            <h4>{user && user.firstName}</h4>
                         </div>
 
                         <ul className="profile-list">
@@ -54,7 +55,7 @@ function Header(props) {
                     </div>
                 </div>
 
-                <p>Admin</p>
+                <p>{user && user.firstName}</p>
             </div>
         </div>
     );

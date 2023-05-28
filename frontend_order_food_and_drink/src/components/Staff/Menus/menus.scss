@@ -25,6 +25,12 @@
             font-size: 1.8rem;
             align-self: center;
         }
+
+        &.disable{
+            pointer-events: none;
+            cursor: default;
+            color: $gray-color;
+        }
     }
 
     &-name{

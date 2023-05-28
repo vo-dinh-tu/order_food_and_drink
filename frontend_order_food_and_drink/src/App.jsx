@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
+import { useEffect } from 'react';
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import './App.scss';
 import Header from './components/Customer/Header/Header';
@@ -19,9 +19,29 @@ import CategoryUpdate from './pages/Staff/Category/CategoryUpdate';
 import Product from './pages/Staff/Product/Product';
 import ProductAdd from './pages/Staff/Product/ProductAdd';
 import ProductUpdate from './pages/Staff/Product/ProductUpdate';
+import LoginStaff from './pages/Staff/Login/Login';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  useEffect(()=>{
+    if(location.pathname.includes('/staff') && user === null){
+      navigate('/staff/login');
+    }
+  },[])
+
+  if(location.pathname.includes('/staff/login')){
+    return(
+      <>
+        <Routes>
+          <Route path='/staff/login' element={<LoginStaff />} />
+        </Routes>
+      </>
+    )
+  }
+
   if(location.pathname.includes('/staff')){
     return (
       <>
@@ -42,7 +62,9 @@ function App() {
         </div>
     </>
     )
-  }else{
+  }
+
+  if(location.pathname.includes('/')){
     return(
       <>
         <Header />

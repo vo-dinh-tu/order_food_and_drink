@@ -10,55 +10,50 @@ const sliders=[
       name:'Trang chủ',
     },
     {
+      url:'/staff/orders',
+    //   icon:<FaChartPie />,
+      name:'Đơn hàng',
+    },
+    {
       url:'/staff/category',
     //   icon:<FaEdit />,
       name:'Danh mục',
+      role: 'ADMIN'
     },
     {
       url:'/staff/product',
     //   icon:<FaTable />,
       name:'Sản phẩm',
+      role: 'ADMIN'
     },
-    // {
-    //   url:'/charts',
-    // //   icon:<FaChartPie />,
-    //   name:'Charts',
-    // },
-    // {
-    //   url:'/login',
-    // //   icon:<FaSignInAlt />,
-    //   name:'Login',
-    // },
-    // {
-    //   url:'/register',
-    // //   icon:<FaUserPlus />,
-    //   name:'Register',
-    // },
 ];
 
 function Menus(props) {
-    return (
-        <div className="slider__menu">
-            <ul className="slider__menu-list">
-                {sliders.map((item, index)=>{
-                    const {url,icon, name} = item
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  let roleUser = user ? user.role : null;
 
-                    return (
-                        <li className='slider__menu-item active`:`slider__menu-item' 
-                            key={index} 
-                            // onClick={()=>handleClick(index)}
-                            >
+  return (
+    <div className="slider__menu">
+        <ul className="slider__menu-list">
+            {sliders.map((item, index)=>{
+                const {url,icon, name, role} = item
 
-                            <Link to={url} className="slider__menu-link">
-                                {/* {icon} */}
-                                <p className="slider__menu-name">{name}</p>
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
-    );
+                return (
+                    <li className='slider__menu-item active`:`slider__menu-item' 
+                        key={index} 
+                        // onClick={()=>handleClick(index)}
+                        >
+
+                        <Link to={url} className={`slider__menu-link ${role && role !== roleUser ? 'disable' : ''}`}>
+                            {/* {icon} */}
+                            <p className="slider__menu-name">{name}</p>
+                        </Link>
+                    </li>
+                )
+            })}
+        </ul>
+    </div>
+  );
 }
 
 export default Menus;
