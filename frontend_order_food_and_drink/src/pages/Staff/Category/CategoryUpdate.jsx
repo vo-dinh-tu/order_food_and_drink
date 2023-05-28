@@ -6,7 +6,7 @@ function CategoryAdd(props) {
     const [cateItem, setCateItem] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
- 
+
     useEffect(()=>{
         if(id !== null && id !== undefined){
             const fetchCategoryItem = async ()=>{
@@ -22,16 +22,17 @@ function CategoryAdd(props) {
 
     const handleUpdateCate = async (event) =>{
         event.preventDefault();
+        
+        const formData = new FormData();
+        formData.append("name", cateItem.name);
+        formData.append("image", cateItem.image);
 
         const response = await fetch(`/api/category/${id}`,{
-            method: 'put',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cateItem)
+            method: 'post',
+            body: formData
         });        
         const data = await response.json();
-        
+
         if(data) navigate('/staff/category');
     }
 
@@ -48,7 +49,7 @@ function CategoryAdd(props) {
                                 // required
                                 type="text"
                                 name="name"
-                                value={cateItem.name}
+                                value={cateItem.name || ''}
                                 onChange={(event)=> setCateItem({...cateItem, name: event.target.value})}
                             />
                         </Form.Group>
@@ -59,20 +60,10 @@ function CategoryAdd(props) {
                                 type="file"
                                 // required
                                 name="image"
-                                value={cateItem.image}  
+                                accept=".jpg, .jpeg, .png"
+                                onChange={(event)=> setCateItem({...cateItem, image: event.target.files[0]})}
                             />
                         </Form.Group>
-
-                        <Form.Group className="mb-4">
-                            <Form.Check
-                                // required
-                                name="is_active"
-                                label="Trạng thái"
-                                checked={cateItem.is_active ? true : false}
-                                onChange={()=> setCateItem({...cateItem, is_active: !cateItem.is_active})}
-                            />
-                        </Form.Group>
-
                         <Button className='btn-add' type="submit">Cập nhập</Button>
                     </Form>
                 )}

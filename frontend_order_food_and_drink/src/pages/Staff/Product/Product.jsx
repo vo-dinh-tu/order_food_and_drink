@@ -69,7 +69,7 @@ function Product(props) {
                                             {name}
                                         </td>
                                         <td>
-                                            <image src={image} alt=""/>
+                                            <img src={`http://localhost:8080/static/images/${image}`} alt=""/>
                                         </td>
                                         <td>
                                             {price}

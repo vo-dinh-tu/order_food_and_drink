@@ -41,7 +41,7 @@ function Header(props) {
                         ? 
                         (
                             <div className="header__feature-user">
-                                <span>{user.first_name + ' ' + user.last_name}</span>
+                                <span>{user.firstName + ' ' + user.lastName}</span>
                             </div>
                         )
                         :

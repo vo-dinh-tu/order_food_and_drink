@@ -35,14 +35,18 @@ function ProductUpdate(props) {
     const handleUpdateProduct = async (event) =>{
         event.preventDefault();
 
+        const formData = new FormData();
+        formData.append("name", productItem.name);
+        formData.append("category_id", productItem.category_id);
+        formData.append("image", productItem.image);
+        formData.append("detail", productItem.detail);
+        formData.append("price", productItem.price);
+
         const response = await fetch(`/api/product/${id}`,{
             method: 'put',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(productItem)
+            body: formData
         });        
-        const data = await response.json();
+        const data = response.json();
         
         if(data) navigate('/staff/product');
     }
@@ -100,7 +104,7 @@ function ProductUpdate(props) {
                                 type="file"
                                 // required
                                 name="image"
-                                value={productItem.image}  
+                                onChange={(event)=> setProductItem({...productItem, image: event.target.files[0]})}                              
                             />
                         </Form.Group>
 
@@ -115,16 +119,6 @@ function ProductUpdate(props) {
                                     onChange={(event)=> setProductItem({...productItem, detail: event.target.value})}
                                 />
                             </FloatingLabel>
-                        </Form.Group>
-
-                        <Form.Group className="mb-4">
-                            <Form.Check
-                                // required
-                                name="is_active"
-                                label="Trạng thái"
-                                checked={productItem.is_active ? true : false}
-                                onChange={()=> setProductItem({...productItem, is_active: !productItem.is_active})}
-                            />
                         </Form.Group>
 
                         <Button className='btn btn-add' type="submit">Cập nhập</Button>

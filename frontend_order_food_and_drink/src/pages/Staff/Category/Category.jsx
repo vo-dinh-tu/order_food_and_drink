@@ -68,7 +68,7 @@ function Category(props) {
                                             {name}
                                         </td>
                                         <td>
-                                            <image src={`/static/images/${image}`} alt=""/>
+                                            <img src={`http://localhost:8080/static/images/${image}`} alt=""/>
                                         </td>
                                         <td>
                                             <span className={`category-status ${is_active ? 'active' : 'inactive'}`}>{is_active ? 'active' : 'inactive'}</span>

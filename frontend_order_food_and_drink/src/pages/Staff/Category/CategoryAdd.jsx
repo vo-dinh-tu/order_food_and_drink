@@ -27,11 +27,6 @@ function CategoryAdd(props) {
             
             const response = await fetch('/api/category',{
                 method: 'post',
-                // headers: {
-                //     // 'Content-Type': 'application/json'
-                //     'Content-Type': 'multipart/form-data',
-                // },
-                // body: JSON.stringify(payload)
                 body: formData
             });
             const data = await response.json();

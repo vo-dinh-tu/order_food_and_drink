@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Form, FloatingLabel  } from 'react-bootstrap';
+import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function ProductAdd(props) {
@@ -20,19 +20,19 @@ function ProductAdd(props) {
         if(data && data.length > 0) setCategoryList(data);
     }
 
-    const had =(event)=>{
-        console.log(event.target);
-    }
-
     const handleSubmit = async () =>{
         event.preventDefault();
 
+        const formData = new FormData();
+        formData.append("name", productAdd.name);
+        formData.append("category_id", productAdd.category_id);
+        formData.append("detail", productAdd.detail);
+        formData.append("price", productAdd.price);
+        formData.append("image", productAdd.image);
+
         const response = await fetch('/api/product',{
             method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(productAdd)
+            body: formData
         });
         const data = await response.json();
 
@@ -93,6 +93,8 @@ function ProductAdd(props) {
                             type="file"
                             // required
                             name="image"
+                            accept=".jpg, .jpeg, .png"
+                            onChange={(event)=> setProductAdd({...productAdd, image: event.target.files[0]})}
                         />
                     </Form.Group>
 
