@@ -12,6 +12,7 @@ import Register from './pages/Customer/Register/Register';
 import Home from './pages/Customer/Home/Home';
 import Detail from './pages/Customer/Detail/Detail';
 import Checkout from './pages/Customer/Checkout/Checkout';
+import HistoryOrder from './pages/Customer/HistoryOrder/HistoryOrder';
 import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import CategoryAdd from './pages/Staff/Category/CategoryAdd';
@@ -75,6 +76,7 @@ function App() {
           <Route path='/' element={<Home />}/>
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/detail/:id' element={<Detail />}/>
+          <Route path='/history-order' element={<HistoryOrder />}/>
         </Routes>
         <Footer />
       </>

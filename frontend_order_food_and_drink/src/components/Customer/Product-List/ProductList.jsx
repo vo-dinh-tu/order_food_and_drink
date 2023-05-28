@@ -32,7 +32,7 @@ function ProductList(props) {
                 {products && (
                     products.map((product, index)=>{
                         if(product.is_active){                     
-                            return <ProductCard key={index} items={product}/>
+                            return <ProductCard key={index} items={product} fullCol={true}/>
                         }
                     })
                 )}

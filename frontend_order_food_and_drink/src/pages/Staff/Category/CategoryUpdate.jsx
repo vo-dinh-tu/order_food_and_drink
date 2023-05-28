@@ -28,7 +28,7 @@ function CategoryAdd(props) {
         formData.append("image", cateItem.image);
 
         const response = await fetch(`/api/category/${id}`,{
-            method: 'post',
+            method: 'put',
             body: formData
         });        
         const data = await response.json();

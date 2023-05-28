@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import ProductList from '../../../components/Customer/Product-List/ProductList';
+import ProductRecommender from '../../../components/Customer/Product-Recommender/ProductRecommender';
 import Contact from '../../../components/Customer/Contact/Contact';
 import Category from '../../../components/Customer/Category/Category';
 import Cart from '../../../components/Customer/Cart/Cart';
@@ -40,6 +41,15 @@ function Home(props) {
         <>
             <Cart accessToken={accessToken}/>
             <Container className='block-product'>
+                {
+                    accessToken && (
+                        <>
+                            <h2>Gợi ý cho bạn</h2>
+                            <ProductRecommender accessToken={accessToken}/>
+                        </>
+                    )
+                }
+
                 <h2>Nổi bật hôm nay</h2>
                 <Category categories={categories}/>
                 <ProductList />

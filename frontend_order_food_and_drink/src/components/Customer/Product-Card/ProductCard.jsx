@@ -9,7 +9,7 @@ import './productCard.scss';
 import {setCartStore, setCartItems} from '../../../actions/user';
 import { fetchAddProductToCart, fetchGetCart } from '../../../actions/cart';
 
-function ProductCard({items}) {
+function ProductCard({items, fullCol}) {
     const {id, image, name, price} = items;
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -41,7 +41,7 @@ function ProductCard({items}) {
     }
 
     return (
-        <Col>
+        <Col xs={fullCol ? 3 : 100}>
             <div className='product-card'>
                 <Link to={`/detail/${id}`} className="product-img">
                     <img src={pizza} alt="pizza" />
