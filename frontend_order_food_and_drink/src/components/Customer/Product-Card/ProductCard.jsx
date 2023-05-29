@@ -15,6 +15,13 @@ function ProductCard({items, fullCol}) {
     const user = JSON.parse(sessionStorage.getItem("user"));
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    var im;
+    if (image) {
+        im = image;
+    } else {
+        im = pizza;
+    }
     
     const addProductInCart = async (idProduct) =>{  
         if(user && accessToken){
@@ -44,7 +51,7 @@ function ProductCard({items, fullCol}) {
         <Col xs={fullCol ? 3 : 100}>
             <div className='product-card'>
                 <Link to={`/detail/${id}`} className="product-img">
-                    <img src={pizza} alt="pizza" />
+                    <img src={im} alt="" />
                 </Link>
                 <div className="product-info">
                     <div className="product-info-left">
