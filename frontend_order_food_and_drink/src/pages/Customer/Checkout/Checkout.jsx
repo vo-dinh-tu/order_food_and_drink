@@ -43,14 +43,13 @@ function Checkout(props) {
     const handleOrder = async (event)=>{
         event.preventdefault;
         const cartId = cart.id;
-        let isSuccess = false;
         
         if(paymentMethod === '' || cartId === null) return;
     
         if(paymentMethod === 'cash'){
             const data = await fetchOrder(cartId);
 
-            if(data.success) isSuccess = true;
+            if(data.success) return setShowPopup(true);
         }else{
             const data = await fetchPayment(cartId);
 
@@ -58,20 +57,20 @@ function Checkout(props) {
                 window.location.href = `${data.paymentUrl}`;
             }
         }
-
-        if(isSuccess) return setShowPopup(true);
     }
 
-    const handleHidePopup = () =>{
-        setShowPopup(false);
-    }
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('vnp_TransactionStatus');
+
+        if(myParam === '00') return setShowPopup(true);
+    }, []);
 
     return (
         <>
             <Cart accessToken={accessToken}/>
             <PopupOrderSuccess 
                 show={showPoppup}
-                onHide={() => handleHidePopup()}
                 backdrop="static"
             />
             <Container className='block-checkout'>
