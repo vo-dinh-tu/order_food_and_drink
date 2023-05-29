@@ -18,7 +18,6 @@ function Detail(props) {
     const user = JSON.parse(sessionStorage.getItem("user"));
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
 
-
     const fetchProductDetail = async()=>{
         const response = await fetch(`/api/product/${id}`);
         const data = await response.json();
@@ -78,7 +77,7 @@ function Detail(props) {
                     <div className='product-details__head'>
                         <div className='product-details__images'>
                             <div className='product-details__images-main'>
-                                <img src={pizza} alt="" />
+                                <img src={productItem && `http://localhost:8080/static/images/${productItem.image}`} alt="" />
                             </div>
                             <div className='product-details__images-sub'>
                                 <div className='product-details__images-sub__item'>

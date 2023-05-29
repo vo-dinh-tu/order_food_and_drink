@@ -16,13 +16,6 @@ function ProductCard({items, fullCol}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    var im;
-    if (image) {
-        im = image;
-    } else {
-        im = pizza;
-    }
-    
     const addProductInCart = async (idProduct) =>{  
         if(user && accessToken){
             let itemProduct = [{id: idProduct, qty: 1}];
@@ -51,7 +44,7 @@ function ProductCard({items, fullCol}) {
         <Col xs={fullCol ? 3 : 100}>
             <div className='product-card'>
                 <Link to={`/detail/${id}`} className="product-img">
-                    <img src={im} alt="" />
+                    <img src={`http://localhost:8080/static/images/${image}`} alt="" />
                 </Link>
                 <div className="product-info">
                     <div className="product-info-left">
