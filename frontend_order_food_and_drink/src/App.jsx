@@ -21,6 +21,8 @@ import Product from './pages/Staff/Product/Product';
 import ProductAdd from './pages/Staff/Product/ProductAdd';
 import ProductUpdate from './pages/Staff/Product/ProductUpdate';
 import LoginStaff from './pages/Staff/Login/Login';
+import Order from './pages/Staff/Order/Order';
+import OrderDetail from './pages/Staff/Order/OrderDetail';
 
 function App() {
   const location = useLocation();
@@ -58,6 +60,8 @@ function App() {
               <Route path='/staff/product' element={<Product />}/>
               <Route path='/staff/product/add' element={<ProductAdd />}/>
               <Route path='/staff/product/update/:id' element={<ProductUpdate />}/>
+              <Route path='/staff/order' element={<Order />}/>
+              <Route path='/staff/order/detail/:orderId' element={<OrderDetail />}/>
             </Routes>
           </div>
         </div>

@@ -10,7 +10,7 @@ const sliders=[
       name:'Trang chủ',
     },
     {
-      url:'/staff/orders',
+      url:'/staff/order',
     //   icon:<FaChartPie />,
       name:'Đơn hàng',
     },
