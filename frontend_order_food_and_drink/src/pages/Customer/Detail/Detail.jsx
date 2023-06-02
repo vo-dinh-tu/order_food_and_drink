@@ -77,7 +77,7 @@ function Detail(props) {
                     <div className='product-details__head'>
                         <div className='product-details__images'>
                             <div className='product-details__images-main'>
-                                <img src={productItem && `http://localhost:8080/static/images/${productItem.image}`} alt="" />
+                                <img src={productItem && productItem.image ? `http://localhost:8080/static/images/${productItem.image}` : pizza} alt="" />
                             </div>
                             <div className='product-details__images-sub'>
                                 <div className='product-details__images-sub__item'>
