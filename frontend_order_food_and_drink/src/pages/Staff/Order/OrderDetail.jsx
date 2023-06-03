@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
+import { fetchUpdateConfirm, fetchUpdateProcessing, fetchUpdateComplete } from '../../../actions/order';
 
 function OrderDetail(props) {
     const [orderDetail, setOrderDetail] = useState(null);
+    const [orderStatus, setOrderStatus] = useState(null);
     const [orderItems, setOrderItems] = useState([]);
     const { orderId } = useParams();
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
@@ -11,7 +13,7 @@ function OrderDetail(props) {
     if(orderId && accessToken){
         useEffect(()=>{
             fetchOrderDetail(orderId, accessToken);
-        },[orderId, accessToken]);
+        },[orderId, accessToken,  orderStatus]);
     }
 
     const fetchOrderDetail = async (orderId, accessToken)=>{
@@ -22,11 +24,42 @@ function OrderDetail(props) {
             }
         });
         const data = await response.json();
+        console.log(data)
 
         if(data){
             setOrderDetail(data.order);
             setOrderItems(data.orderItems);
             return;
+        }
+    }
+
+    const handleConfirmOrder = async (orderId) => {
+        if (orderId && accessToken) {
+            var result = await fetchUpdateConfirm(orderId, accessToken);
+            if (result.status === 200) {
+                setOrderStatus("CONFIRMED");
+                return;
+            }
+        }        
+    }
+
+    const handleProcessingOrder = async (orderId) => {
+        if (orderId && accessToken) {
+            var result = await fetchUpdateProcessing(orderId, accessToken);
+            if (result.status === 200) {
+                setOrderStatus("PROCESSING");
+                return;
+            }
+        }
+    }
+
+    const handleCompleteOrder = async (orderId) => {
+        if (orderId && accessToken) {
+            var result = await fetchUpdateComplete(orderId, accessToken);
+            if (result.status === 200) {
+                setOrderStatus("COMPLETED");
+                return;
+            }
         }
     }
 
@@ -36,8 +69,8 @@ function OrderDetail(props) {
 
             <div className="order__detail-container background-radius">
                 <div className="order__detail-head">
-                    <span>Tên tài khoản: </span>
-                    <span>Ngày đặt hàng: </span>
+                    <span>Tên tài khoản: {orderDetail && orderDetail.first_name} {orderDetail && orderDetail.last_name}</span>
+                    <span>Ngày đặt hàng: {orderDetail && orderDetail.createdAt}</span>
                 </div>
                 <div className="order__detail-group">
                     <Row>
@@ -69,9 +102,9 @@ function OrderDetail(props) {
                         </label>
                     </div>
                     <div className="order__detail-group-btn">
-                        <button className='btn btn-confirm'>Nhận đơn</button>
-                        <button className='btn btn-processing'>Đang làm</button>
-                        <button className='btn btn-complete'>Hoàn thành</button>
+                        <button className='btn btn-confirm' onClick={()=>handleConfirmOrder(orderDetail && orderDetail.id)}>Nhận đơn</button>
+                        <button className='btn btn-processing' onClick={()=>handleProcessingOrder(orderDetail && orderDetail.id)}>Đang làm</button>
+                        <button className='btn btn-complete' onClick={()=>handleCompleteOrder(orderDetail && orderDetail.id)}>Hoàn thành</button>
                     </div>
                 </div>
             </div>

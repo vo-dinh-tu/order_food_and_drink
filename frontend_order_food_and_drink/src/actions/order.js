@@ -24,3 +24,39 @@ export const fetchPayment = async (cartId) =>{
     const data = await response.json();
     return data;
 }
+
+export const fetchUpdateConfirm = async (orderId, accessToken)=>{
+    const response = await fetch(`/api/order/status`,{
+        method: 'post',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderId: orderId, status: "CONFIRMED"})
+    });
+    return response;
+}
+
+export const fetchUpdateProcessing = async (orderId, accessToken)=>{
+    const response = await fetch(`/api/order/status`,{
+        method: 'post',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderId: orderId, status: "PROCESSING"})
+    });
+    return response;
+}
+
+export const fetchUpdateComplete = async (orderId, accessToken)=>{
+    const response = await fetch(`/api/order/status`,{
+        method: 'post',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderId: orderId, status: "COMPLETED"})
+    });
+    return response;
+}
