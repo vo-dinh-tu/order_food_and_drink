@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
+
 import { fetchUpdateConfirm, fetchUpdateProcessing, fetchUpdateComplete } from '../../../actions/order';
+import { statusOrder } from '../../../config/statusOrder';
 
 function OrderDetail(props) {
     const [orderDetail, setOrderDetail] = useState(null);
@@ -78,7 +80,7 @@ function OrderDetail(props) {
                             const {id, product_name, product_image, price, qty} = item;
 
                             return (
-                                <Col xs={6} className=''>
+                                <Col xs={6} className='' key={index}>
                                     <div className="order__detail-item" key={index}>
                                         <img src={`http://localhost:8080/static/images/${product_image}`} alt="" />
                                         <div className="detail-item-info">
@@ -102,9 +104,14 @@ function OrderDetail(props) {
                         </label>
                     </div>
                     <div className="order__detail-group-btn">
-                        <button className='btn btn-confirm' onClick={()=>handleConfirmOrder(orderDetail && orderDetail.id)}>Nhận đơn</button>
-                        <button className='btn btn-processing' onClick={()=>handleProcessingOrder(orderDetail && orderDetail.id)}>Đang làm</button>
-                        <button className='btn btn-complete' onClick={()=>handleCompleteOrder(orderDetail && orderDetail.id)}>Hoàn thành</button>
+                        <button disabled={(orderDetail && orderDetail.status !== statusOrder.NEW)} className="btn btn-confirm"
+                            onClick={()=>handleConfirmOrder(orderDetail && orderDetail.id)}>Nhận đơn</button>
+
+                        <button disabled={orderDetail && orderDetail.status !== statusOrder.CONFIRMED} className="btn btn-processing" 
+                            onClick={()=>handleProcessingOrder(orderDetail && orderDetail.id)}>Đang làm</button>
+
+                        <button disabled={orderDetail && orderDetail.status !== statusOrder.PROCESSING} className="btn btn-complete"
+                            onClick={()=>handleCompleteOrder(orderDetail && orderDetail.id)}>Hoàn thành</button>
                     </div>
                 </div>
             </div>

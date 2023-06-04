@@ -141,7 +141,6 @@
         }
 
         .order-status{
-            background: #1AC073;
             border-radius: 33px;
             color: $white-color;
             padding: 2px 8px;
@@ -161,6 +160,11 @@
             border-radius: 18px;
             padding: 12px 12px;
             color: $white-color;
+
+            &:disabled{
+                opacity: 0.5;
+                border: none;
+            }
         }
 
         .btn-confirm{

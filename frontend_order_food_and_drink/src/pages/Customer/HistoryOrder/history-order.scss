@@ -1,0 +1,147 @@
+@use '../../../scss/' as *;
+
+.block__history-order{
+    padding: 105px 0 45px;
+    font-family: 'Lexend Deca', sans-serif;
+
+    h2{
+        text-align: center;
+        font-weight: 400;
+        font-size: 45px;
+        line-height: 56px;
+        font-style: normal;
+        color: $green-color;
+        margin-bottom: 30px;
+    }
+
+    .history-order{
+        &-list{
+        }
+        
+        &-item{
+            padding: 30px;
+            margin-bottom: 30px;
+
+            &.completed{
+                background-color: #F0FAF7;
+            }
+        }
+
+        &-head{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+
+            label{
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 20px;
+                color: #000;
+
+                span{
+                    font-weight: 500;
+                }
+
+                .order-time{
+                    color: $gray-color;
+                }
+            }
+        }
+
+        &-processing{
+
+        }
+
+        &-product{
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 168px;
+
+            .product-item{
+                display: flex;
+                gap: 24px;
+                margin-bottom: 16px;
+                border: 1px solid #929292;
+                border-radius: 20px;
+        
+                img{
+                    max-width: 150px;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;          
+                }
+        
+                .product-item-info{
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px 20px 20px 0;
+                    font-size: 16px;
+                    line-height: 20px;
+        
+                    label{
+                        font-weight: 400;
+                        margin-bottom: 16px;
+                    }
+                    span{
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        &-footer{
+            border-top: 1px solid $black-color;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+
+            label{
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 20px;
+                color: $black-color;
+
+                span{
+                    color: $green-color;
+                }
+            }
+        }
+
+        &-status{
+            display: flex;
+            align-items: center;
+            gap: 24px;
+
+            .btn-cancel{
+                color: $red-color;
+                text-decoration: underline;
+            }
+
+            .order-status{
+                color: $white-color;
+                padding: 4px 12px;
+                border-radius: 20px;
+
+                &.completed{
+                    background: $green-color;
+                }
+    
+                &.canceled{
+                    background: $red-color;
+                }
+    
+                &.processing{
+                    background: $yellow-color;
+                }
+
+                &.confirmed{
+                    background: orange;
+                }
+    
+                &.new{
+                    background: $gray-color;
+                }
+            }
+        }
+    }
+}
