@@ -43,7 +43,7 @@ function Order(props) {
                     <tbody>
                         {orderList && orderList.length > 0 && (
                             orderList.map((orderItem, index)=>{
-                                const {id, total_item, total_price} = orderItem;
+                                const {id,first_name, last_name, total_item, total_price} = orderItem;
 
                                 return(
                                     <tr key={index}>
@@ -51,7 +51,7 @@ function Order(props) {
                                         <td>
                                             {id}
                                         </td>
-                                        <td>{}</td>
+                                        <td>{first_name + ' ' + last_name}</td>
                                         <td>
                                             <span>{total_item}</span>
                                         </td>

@@ -19,7 +19,7 @@ function Header(props) {
     return (
         <div className='header'>
             <Container>
-                <Link href='/' className='header__logo'>TBayEAT</Link>
+                <Link to='/' className='header__logo'>TBayEAT</Link>
         
                 <div className='header__feature'>
                     <div className='header__feature-cart' onClick={handleShowCart}>

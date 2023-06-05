@@ -44,7 +44,7 @@ function PopupOrderSuccess(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Link to='/order-history' className='btn-success-follow'>Theo dõi đơn hàng</Link>
+                    <Link to='/history-order' className='btn-success-follow'>Theo dõi đơn hàng</Link>
                     <Link to='/' className='btn-success-continue'>Tiếp tục mua hàng</Link>
                 </Modal.Footer>
             </Modal>

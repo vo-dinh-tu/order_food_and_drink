@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
 
-import { fetchUpdateConfirm, fetchUpdateProcessing, fetchUpdateComplete } from '../../../actions/order';
+import { fetchUpdateStatusOrder } from '../../../actions/order';
 import { statusOrder } from '../../../config/statusOrder';
 
 function OrderDetail(props) {
@@ -37,7 +37,7 @@ function OrderDetail(props) {
 
     const handleConfirmOrder = async (orderId) => {
         if (orderId && accessToken) {
-            var result = await fetchUpdateConfirm(orderId, accessToken);
+            var result = await fetchUpdateStatusOrder(orderId, accessToken, statusOrder.CONFIRMED);
             if (result.status === 200) {
                 setOrderStatus("CONFIRMED");
                 return;
@@ -47,7 +47,7 @@ function OrderDetail(props) {
 
     const handleProcessingOrder = async (orderId) => {
         if (orderId && accessToken) {
-            var result = await fetchUpdateProcessing(orderId, accessToken);
+            var result = await fetchUpdateStatusOrder(orderId, accessToken, statusOrder.PROCESSING);
             if (result.status === 200) {
                 setOrderStatus("PROCESSING");
                 return;
@@ -57,7 +57,7 @@ function OrderDetail(props) {
 
     const handleCompleteOrder = async (orderId) => {
         if (orderId && accessToken) {
-            var result = await fetchUpdateComplete(orderId, accessToken);
+            var result = await fetchUpdateStatusOrder(orderId, accessToken, statusOrder.COMPLETED);
             if (result.status === 200) {
                 setOrderStatus("COMPLETED");
                 return;
