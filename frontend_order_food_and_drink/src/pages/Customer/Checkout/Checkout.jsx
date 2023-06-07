@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Cart from '../../../components/Customer/Cart/Cart';
 import PopupOrderSuccess from '../../../components/Customer/PopupOrderSuccess/PopupOrderSuccess';
@@ -17,7 +18,7 @@ function Checkout(props) {
     const cart = useSelector(state => state.user.cart);
     const cartItems = useSelector(state => state.user.cartItems);
     const dispatch = useDispatch();
-    
+
     useEffect(()=>{
         if(accessToken){
             const getItemsCart = async ()=>{
@@ -44,7 +45,10 @@ function Checkout(props) {
         event.preventdefault;
         const cartId = cart.id;
         
-        if(paymentMethod === '' || cartId === null) return;
+        if(paymentMethod === '' || cartId === null){
+            toast.error('Vui lòng chọn phương thức thanh toán');
+            return;
+        }
     
         if(paymentMethod === 'cash'){
             const data = await fetchOrder(cartId);
@@ -68,6 +72,11 @@ function Checkout(props) {
 
     return (
         <>
+            <ToastContainer 
+                position="top-right"
+                autoClose={3000}
+            /> 
+
             <Cart accessToken={accessToken}/>
             <PopupOrderSuccess 
                 show={showPoppup}
@@ -77,7 +86,6 @@ function Checkout(props) {
                 <div className="checkout-title">
                     <h2>Thanh toán</h2>
                 </div>
-
                 <div className="checkout-content">
                     <Table>
                         <thead>

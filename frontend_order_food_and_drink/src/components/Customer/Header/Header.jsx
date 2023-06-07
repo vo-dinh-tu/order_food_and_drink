@@ -11,11 +11,20 @@ function Header(props) {
     const isCart = useSelector(state => state.user.isCart);
     const cart = useSelector(state => state.user.cart);
     const dispatch = useDispatch();
-    
+
     function handleShowCart(){
         const action = visibilityCart(!isCart);
         dispatch(action);
     }
+
+    const handleClickLogOut = (event)=>{
+        event.preventDefault();
+
+        sessionStorage.setItem('user', JSON.stringify(null));
+        sessionStorage.setItem('accessToken', JSON.stringify(''));
+        window.location.href = '/'
+    }
+
     return (
         <div className='header'>
             <Container>
@@ -42,6 +51,19 @@ function Header(props) {
                         (
                             <div className="header__feature-user">
                                 <span>{user.firstName + ' ' + user.lastName}</span>
+                                <div className="header__user-dropdown">
+                                    <ul>
+                                        <li>
+                                            <Link to={'/profile'}>Thông tin tài khoản</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={'/history-order'}>Lịch sử đơn hàng</Link>
+                                        </li>
+                                        <li>
+                                            <Link onClick={(event) => handleClickLogOut(event)}>Đăng xuất</Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         )
                         :

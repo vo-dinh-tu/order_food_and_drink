@@ -3,7 +3,8 @@ const initialState = {
     isCart: false,
     categoryId: '', 
     cart: null,
-    cartItems: []
+    cartItems: [],
+    isToast: false
 };
 
 const userReducer = (state = initialState, action) =>{
@@ -18,6 +19,8 @@ const userReducer = (state = initialState, action) =>{
             return {...state, cart: action.payload}
         case "SET_CART_ITEMS":
             return {...state, cartItems: action.payload}
+        case "SET_DISPLAY_TOAST":
+            return {...state, isToast: action.payload}
         default:
             return state;
     }

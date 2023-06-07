@@ -32,3 +32,10 @@ export const setCartItems = (cartItems) => {
     payload: cartItems
   };
 };
+
+export const setDisplayToast = (isToast) => {
+  return {
+    type: "SET_DISPLAY_TOAST",
+    payload: isToast
+  };
+};
