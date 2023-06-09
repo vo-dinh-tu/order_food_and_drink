@@ -46,7 +46,7 @@ function ProductUpdate(props) {
             method: 'put',
             body: formData
         });        
-        const data = response.json();
+        const data = await response.json();
         
         if(data) navigate('/staff/product');
     }
