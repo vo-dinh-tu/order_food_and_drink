@@ -29,6 +29,7 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("user"));
+  const pathsCanDisplayBanner = ['/'];
 
   useEffect(()=>{
     if(location.pathname.includes('/staff') && user === null){
@@ -74,7 +75,7 @@ function App() {
     return(
       <>
         <Header />
-        <Banner />
+        <Banner isDisplay={pathsCanDisplayBanner.includes(location.pathname)}/>
         <Routes>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
