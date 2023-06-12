@@ -5,12 +5,12 @@
 }
 .product-details {
     font-size: calc(20/1440*100vw);
-    margin: calc(110/20)+em calc(65/20)+em;
+    padding: calc(90/20)+em 0;
     width: 80%;
     &__head {
         display: flex;
         gap: calc(36/20)+em;
-        margin-bottom: calc(60/20)+em;
+        margin-bottom: calc(40/20)+em;
     }
     &__images {
         width: 30%;
@@ -89,12 +89,23 @@
 
     &__desc {
         background: #FAFAFB;
-        padding: calc(32/20)+em;
+        padding: calc(32/20)+em 0;
         &__title {
-            font-weight: 400;
-            font-size: calc(18/20)+em;
+            font-weight: 500;
+            font-size: calc(24/20)+em;
             line-height: 125%;
             color: #1AC073;
+            margin-bottom: 16px;
+        }
+    }
+
+    &__related{
+        &__title {
+            font-weight: 500;
+            font-size: calc(24/20)+em;
+            line-height: 125%;
+            color: #1AC073;
+            margin-bottom: 16px;
         }
     }
 

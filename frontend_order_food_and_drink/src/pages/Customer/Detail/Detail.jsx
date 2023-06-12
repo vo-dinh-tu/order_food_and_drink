@@ -1,15 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from "swiper";
 
 import Cart from '../../../components/Customer/Cart/Cart';
+import ProductCard from '../../../components/Customer/Product-Card/ProductCard';
 import { fetchAddProductToCart, fetchGetCart } from '../../../actions/cart';
 import {setCartStore, setCartItems} from '../../../actions/user';
 import './detail.scss';
+import "swiper/css";
+import "swiper/css/navigation";
 import pizza from '../../../assets/img/pizza.jpg';
 
 function Detail(props) {
     const [productItem, setProductItem] = useState(null);
+    const [categoryID, setCategoryID] = useState(null);
+    const [productRelated, setProductRelated] = useState([]);
     const [inputValue, setInputValue] = useState(1);
     const dispatch = useDispatch();
     const inputRef =useRef();
@@ -22,12 +29,29 @@ function Detail(props) {
         const response = await fetch(`/api/product/${id}`);
         const data = await response.json();
 
-        if(data) setProductItem(data);
+        if(data){
+            setProductItem(data);
+            setCategoryID(data.category_id);
+            return;
+        }
+    }
+
+    const fetchProductRelated = async () =>{
+        const response = await fetch(`/api/product/category/${categoryID}`);
+        const products = await response.json();
+
+        if(products) setProductRelated(products);
+        return;
     }
 
     useEffect(()=>{
-        if(id) fetchProductDetail();
-    },[]);
+        if(id){
+            fetchProductDetail();
+            fetchProductRelated();
+            return;
+        }
+
+    },[id, categoryID]);
 
     const addProductInCart = async (idProduct) =>{  
         if(user && accessToken){
@@ -68,18 +92,18 @@ function Detail(props) {
         
         setInputValue(quantity);
     }
-
+    
     return (
         <>
             <Cart accessToken={accessToken}/>
             <div className=''>
-                <div className='product-details'>
+                <div className='product-details container'>
                     <div className='product-details__head'>
                         <div className='product-details__images'>
                             <div className='product-details__images-main'>
                                 <img src={productItem && productItem.image ? `http://localhost:8080/static/images/${productItem.image}` : pizza} alt="" />
                             </div>
-                            <div className='product-details__images-sub'>
+                            {/* <div className='product-details__images-sub'>
                                 <div className='product-details__images-sub__item'>
                                     <img src={pizza} alt="" />
                                 </div>
@@ -92,7 +116,7 @@ function Detail(props) {
                                 <div className='product-details__images-sub__item'>
                                     <img src={pizza} alt="" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='product-details__options'>
                             <div className='product-details__options__name'>
@@ -137,11 +161,34 @@ function Detail(props) {
                         </div>
                     </div>
                     <div className='product-details__related'>
-                        <div className='product-details__related__title'>Mô tả sản phẩm</div>
-                        <div className='product-details__related__items'>
-                            <div className='product-details__related__item'>
-
-                            </div>
+                        <div className='product-details__related__title'>Sản phẩm liên quan</div>
+                        <div className='product-details__related__list'>
+                            <Swiper
+                                spaceBetween={30}
+                                slidesPerView={4}
+                                loop={true}
+                                rewind={true}
+                                speed={1500}
+                                autoplay={{
+                                    delay: 800,
+                                    disableOnInteraction: false,
+                                }}
+                    
+                                modules={[Autoplay, Navigation]}
+                                >
+                                <div className="swiper-container">
+                                    <div className="swiper-wrapper">
+                                        {productRelated.length > 0 && productRelated.map((product, index)=>{
+                                                return(
+                                                    <SwiperSlide key={index}>
+                                                        <ProductCard key={index} items={product} fullCol={false}/>
+                                                    </SwiperSlide>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </Swiper>
                         </div>
                     </div>
                 </div>

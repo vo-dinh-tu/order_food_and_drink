@@ -50,7 +50,7 @@ function Header(props) {
                         ? 
                         (
                             <div className="header__feature-user">
-                                <span>{user.firstName + ' ' + user.lastName}</span>
+                                <span>{user.first_name + ' ' + user.last_name}</span>
                                 <div className="header__user-dropdown">
                                     <ul>
                                         <li>

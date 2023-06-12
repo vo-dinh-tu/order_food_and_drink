@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from "swiper";
+import { Autoplay, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -32,24 +32,30 @@ function ProductRecommender({accessToken}) {
                 <Swiper
                     spaceBetween={30}
                     slidesPerView={4}
-                    // navigation={true} 
-                    // modules={[Navigation]}
-                    >
-                <div className="swiper-container">
-                    <div className="swiper-wrapper">
-
-                        {productsRecommender.length > 0 && productsRecommender.map((product, index)=>{
-                                return(
-                                    <SwiperSlide key={index}>
-                                        <ProductCard key={index} items={product} fullCol={false}/>
-                                    </SwiperSlide>
-                                )
-                            })
-                        }
-
-                    </div>
-                </div>
+                    loop={true}
+                    rewind={true}
+                    speed={1000}
+                    autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: false,
+                    }}
                     
+                    // navigation={true} 
+                    modules={[Autoplay, Navigation]}
+                    >
+                    <div className="swiper-container">
+                        <div className="swiper-wrapper">
+                            {productsRecommender.length > 0 && productsRecommender.map((product, index)=>{
+                                    return(
+                                        <SwiperSlide key={index}>
+                                            <ProductCard key={index} items={product} fullCol={false}/>
+                                        </SwiperSlide>
+                                    )
+                                })
+                            }
+
+                        </div>
+                    </div>
                 </Swiper>
                 {/* <div className="swiper-button-prev">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
