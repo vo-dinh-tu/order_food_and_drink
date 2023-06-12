@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import { useNavigate  } from "react-router-dom";
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 import './login.scss';
 import { fetchInitCart } from '../../../actions/cart';
@@ -8,6 +9,7 @@ import { fetchInitCart } from '../../../actions/cart';
 function Login() {
     const [accessToken, setAccessToken] = useState(null);
     const [validated, setValidated] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -60,6 +62,10 @@ function Login() {
         }
     }
 
+    const handleTogglePassword = () =>{
+        setShowPassword(!showPassword);
+    }
+
     return (
         <Container className='block-login'>
             <h2>Đăng nhập</h2>
@@ -71,7 +77,8 @@ function Login() {
                 </div>
 
                 <div className='login-form-input'>
-                    <input type="text" name='password' onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    <input type={ showPassword ? 'text' : 'password' } name='password' onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    { showPassword ? <FaEyeSlash onClick={handleTogglePassword} /> : <FaEye onClick={handleTogglePassword} /> }
                     <input type="hidden" name='page'/>
                 </div>
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate  } from "react-router-dom";
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 import card from "../../../assets/img/illustration_login.png";
 import "./login.scss";
@@ -12,7 +13,12 @@ function Login(props) {
     password: "",
     page: "admin",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const handleTogglePassword = () =>{
+    setShowPassword(!showPassword);
+  }
 
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
@@ -74,14 +80,17 @@ function Login(props) {
                                 setInfoLogin({ ...infoLogin, email: event.target.value })
                             }
                         />
-                        <input
-                            placeholder="Password"
-                            type="password"
-                            name="password"
-                            onChange={(event) =>
-                                setInfoLogin({ ...infoLogin, password: event.target.value })
-                            }
-                        />
+                        <div className="form-group">
+                          <input
+                              placeholder="Password"
+                              type={ showPassword ? 'text' : 'password' }
+                              name="password"
+                              onChange={(event) =>
+                                  setInfoLogin({ ...infoLogin, password: event.target.value })
+                              }                    
+                              />
+                              { showPassword ? <FaEyeSlash onClick={handleTogglePassword} /> : <FaEye onClick={handleTogglePassword} /> }
+                        </div>
                         <button type="submit" className="btn btn-success">
                             Đăng nhập
                         </button>

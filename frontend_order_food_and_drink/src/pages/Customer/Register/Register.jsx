@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useNavigate  } from "react-router-dom";
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 import './register.scss';
 
@@ -15,6 +16,7 @@ function Register(props) {
         phone: '',
         gender: ''
     });
+    const [showPassword, setShowPassword] = useState([]);
     const navigate = useNavigate();
 
     function handleChange(event) {
@@ -39,6 +41,14 @@ function Register(props) {
         }
     }
 
+    const handleTogglePassword = (index) =>{
+        setShowPassword((prevPasswords) => {
+            const updatedPasswords = [...prevPasswords];
+            updatedPasswords[index] = !updatedPasswords[index];
+            return updatedPasswords;
+        });
+    }
+
     return (
         <Container className='block-register'>
             <h2>Đăng ký</h2>
@@ -60,11 +70,13 @@ function Register(props) {
                 </div>
 
                 <div className='register-form-input'>
-                    <input type="password" name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    <input type={ showPassword[0] ? 'text' : 'password' } name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    { showPassword[0] ? <FaEyeSlash onClick={()=>handleTogglePassword(0)} /> : <FaEye onClick={()=>handleTogglePassword(0)} /> }
                 </div>
 
                 <div className='register-form-input'>
-                    <input type="password" name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    <input type={ showPassword[1] ? 'text' : 'password' } name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                    { showPassword[1] ? <FaEyeSlash onClick={()=>handleTogglePassword(1)} /> : <FaEye onClick={()=>handleTogglePassword(1)} /> }               
                 </div>
 
                 <div className='form-group'>
