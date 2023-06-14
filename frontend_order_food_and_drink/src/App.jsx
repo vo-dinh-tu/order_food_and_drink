@@ -14,6 +14,7 @@ import Detail from './pages/Customer/Detail/Detail';
 import Checkout from './pages/Customer/Checkout/Checkout';
 import Profile from './pages/Customer/Profile/Profile';
 import HistoryOrder from './pages/Customer/HistoryOrder/HistoryOrder';
+import Search from './pages/Customer/Search/Search';
 import Staff from './pages/Staff/Home/HomeStaff';
 import Category from './pages/Staff/Category/Category';
 import CategoryAdd from './pages/Staff/Category/CategoryAdd';
@@ -84,6 +85,7 @@ function App() {
           <Route path='/detail/:id' element={<Detail />}/>
           <Route path='/history-order' element={<HistoryOrder />}/>
           <Route path='/profile' element={<Profile />}/>
+          <Route path='/search/:key' element={<Search />}/>
         </Routes>
         <Footer />
       </>

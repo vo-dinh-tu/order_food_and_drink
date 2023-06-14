@@ -27,7 +27,6 @@ function ProductRecommender({accessToken}) {
 
     return (
         <>
-        
             <div className='product__recommender'>
                 <Swiper
                     spaceBetween={30}

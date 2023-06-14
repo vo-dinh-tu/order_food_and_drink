@@ -31,8 +31,10 @@
             margin-bottom: 40px;
         }
         &__search-box {
-            display: flex;
-            align-items: center;
+            form{
+                display: flex;
+                align-items: center;
+            }
             input {
                 width: 398px;
                 height: 58px;
@@ -56,6 +58,7 @@
             color: #FFFFFF;
             background: #F3BA00;
             border-radius: 0px 10px 10px 0px;
+            border: none;
         }
     }
     &__image {

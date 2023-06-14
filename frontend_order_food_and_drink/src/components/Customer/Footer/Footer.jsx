@@ -1,10 +1,15 @@
 import React from 'react';
-import './footer.scss';
 import { Container } from 'react-bootstrap';
+import {useLocation} from 'react-router-dom';
+import './footer.scss';
 
 function Footer(props) {
+    const location = useLocation();
+    let isNone = false;
+    if(location.pathname.includes('search')) isNone = true;
+
     return (
-        <div className='footer'>
+        <div className={`footer ${isNone && 'd-none'}`}>
             <Container>
                 <div className='footer__top'>
                     <a href='/' className='footer__logo'>TBayEAT</a>
