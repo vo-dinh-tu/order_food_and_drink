@@ -13,6 +13,7 @@ import Home from './pages/Customer/Home/Home';
 import Detail from './pages/Customer/Detail/Detail';
 import Checkout from './pages/Customer/Checkout/Checkout';
 import Profile from './pages/Customer/Profile/Profile';
+import Charts from './pages/Customer/Charts/Charts';
 import HistoryOrder from './pages/Customer/HistoryOrder/HistoryOrder';
 import Search from './pages/Customer/Search/Search';
 import Staff from './pages/Staff/Home/HomeStaff';
@@ -86,6 +87,7 @@ function App() {
           <Route path='/history-order' element={<HistoryOrder />}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/search/:key' element={<Search />}/>
+          <Route path='/charts' element={<Charts />}/>
         </Routes>
         <Footer />
       </>
