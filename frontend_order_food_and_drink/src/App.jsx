@@ -13,10 +13,10 @@ import Home from './pages/Customer/Home/Home';
 import Detail from './pages/Customer/Detail/Detail';
 import Checkout from './pages/Customer/Checkout/Checkout';
 import Profile from './pages/Customer/Profile/Profile';
-import Charts from './pages/Customer/Charts/Charts';
 import HistoryOrder from './pages/Customer/HistoryOrder/HistoryOrder';
 import Search from './pages/Customer/Search/Search';
 import Staff from './pages/Staff/Home/HomeStaff';
+import Charts from './pages/Staff/Charts/Charts';
 import Category from './pages/Staff/Category/Category';
 import CategoryAdd from './pages/Staff/Category/CategoryAdd';
 import CategoryUpdate from './pages/Staff/Category/CategoryUpdate';
@@ -66,6 +66,7 @@ function App() {
               <Route path='/staff/product/update/:id' element={<ProductUpdate />}/>
               <Route path='/staff/order' element={<Order />}/>
               <Route path='/staff/order/detail/:orderId' element={<OrderDetail />}/>
+              <Route path='/staff/revenue' element={<Charts />}/>
             </Routes>
           </div>
         </div>
@@ -87,7 +88,6 @@ function App() {
           <Route path='/history-order' element={<HistoryOrder />}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/search/:key' element={<Search />}/>
-          <Route path='/charts' element={<Charts />}/>
         </Routes>
         <Footer />
       </>

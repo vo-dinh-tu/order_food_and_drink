@@ -26,6 +26,12 @@ const sliders=[
       name:'Sản phẩm',
       role: 'ADMIN'
     },
+    {
+      url:'/staff/revenue',
+    //   icon:<FaTable />,
+      name:'Doanh thu',
+      role: 'ADMIN'
+    },
 ];
 
 function Menus(props) {
