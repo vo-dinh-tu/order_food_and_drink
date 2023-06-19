@@ -68,14 +68,14 @@ function Home(props) {
                 <Category categories={categories}/>
                 <ProductList />
 
-                <div className='btn-see-more'>
+                {/* <div className='btn-see-more'>
                     <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.5 9.5V5M5.5 5V0.5M5.5 5H10M5.5 5H1" stroke="#929292" strokeLinecap="round"/>
                     </svg>
                     <span>
                         Xem thêm...
                     </span>
-                </div>
+                </div> */}
 
                 <Contact />
             </Container>

@@ -53,10 +53,12 @@ function Order(props) {
                                         </td>
                                         <td>{first_name + ' ' + last_name}</td>
                                         <td>
-                                            <span>{total_item}</span>
+                                            {total_item}
                                         </td>
                                         <td>
-                                            <span>{total_price}</span>
+                                            <span>
+                                                {total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                            </span>
                                         </td>
                                         <td>
                                             <Link to={`/staff/order/detail/${id}`}>

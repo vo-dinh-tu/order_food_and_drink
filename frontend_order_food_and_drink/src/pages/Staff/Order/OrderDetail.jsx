@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
+import moment from 'moment';
 
 import { fetchUpdateStatusOrder } from '../../../actions/order';
 import { statusOrder } from '../../../config/statusOrder';
@@ -71,8 +72,8 @@ function OrderDetail(props) {
 
             <div className="order__detail-container background-radius">
                 <div className="order__detail-head">
-                    <span>Tên tài khoản: {orderDetail && orderDetail.first_name} {orderDetail && orderDetail.last_name}</span>
-                    <span>Ngày đặt hàng: {orderDetail && orderDetail.createdAt}</span>
+                    <label>Tên tài khoản: <span>{orderDetail && orderDetail.first_name} {orderDetail && orderDetail.last_name}</span></label>
+                    <label>Ngày đặt hàng: <span>{orderDetail && moment(orderDetail.createdAt).format('DD-MM-YYYY')}</span></label>
                 </div>
                 <div className="order__detail-group">
                     <Row>
@@ -100,7 +101,7 @@ function OrderDetail(props) {
                         </label>
                         <label>
                             Tổng thanh toán:
-                            <span>{orderDetail && orderDetail.total_price}</span>
+                            <span>{orderDetail && orderDetail.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                         </label>
                     </div>
                     <div className="order__detail-group-btn">

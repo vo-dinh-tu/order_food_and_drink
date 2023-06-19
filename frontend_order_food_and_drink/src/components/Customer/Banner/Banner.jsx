@@ -12,7 +12,7 @@ function Banner(props) {
     const handleSubmitSearch = (event) =>{
         event.preventDefault();
         if(key === '') return;
-        navigate(`/search/${key}`);
+        navigate(`/search?key=${key}`);
     }
 
     if (isDisplay) {

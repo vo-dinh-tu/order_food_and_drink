@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ProductCard from '../../../components/Customer/Product-Card/ProductCard';
 import contactImg from '../../../assets/img/contact.png';
 
 import './search.scss';
 
 function Search(props) {
+    const location = useLocation();
+    let key = location && location.search.substring(5);
     const [productSearch, setProductSearch] = useState([]);
     const [keyWords, setKeyWords] = useState('');
-    const {key} = useParams();
 
     const fetchSearch = async ()=>{
         const response = await fetch(`/api/product/search/${key}`);
@@ -23,7 +24,7 @@ function Search(props) {
     const handleSubmit = (event) =>{
         event.preventDefault();
         if(keyWords === '') return;
-        window.location.href = `/search/${keyWords}`;
+        window.location.href = `/search?key=${keyWords}`;
     }
 
     useEffect(()=>{

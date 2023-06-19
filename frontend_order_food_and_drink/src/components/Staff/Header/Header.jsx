@@ -12,6 +12,14 @@ import './header.scss';
 function Header(props) {
     const user = JSON.parse(sessionStorage.getItem("user"));
     
+    const handleClickLogOut = (event)=>{
+        event.preventDefault();
+
+        sessionStorage.setItem('user', JSON.stringify(null));
+        sessionStorage.setItem('accessToken', JSON.stringify(''));
+        window.location.href = '/staff';
+    }
+
     return (
         <div className="header-staff">
             <div className="col-2">
@@ -48,8 +56,8 @@ function Header(props) {
 
                         <div className="user-logout">
                             <FaRunning />
-                            <a href="" className="profile-item-link">
-                            Logout
+                            <a onClick={(event) => handleClickLogOut(event)} href="" className="profile-item-link">
+                                Đăng xuất
                             </a>
                         </div>
                     </div>

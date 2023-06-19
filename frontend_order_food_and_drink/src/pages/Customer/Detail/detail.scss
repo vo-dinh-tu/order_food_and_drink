@@ -1,8 +1,5 @@
 @use '../../../scss/' as *;
 
-#root{
-    background-color: #FFFFFF;
-}
 .product-details {
     font-size: calc(20/1440*100vw);
     padding: calc(90/20)+em 0;

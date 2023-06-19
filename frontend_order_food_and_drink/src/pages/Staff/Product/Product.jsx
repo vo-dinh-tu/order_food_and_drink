@@ -72,7 +72,7 @@ function Product(props) {
                                             <img src={`http://localhost:8080/static/images/${image}`} alt=""/>
                                         </td>
                                         <td>
-                                            {price}
+                                            {price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                         </td>
                                         <td>
                                             <span className={`product-status ${is_active ? 'active' : 'inactive'}`}>{is_active ? 'active' : 'inactive'}</span>

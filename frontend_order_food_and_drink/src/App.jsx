@@ -87,7 +87,7 @@ function App() {
           <Route path='/detail/:id' element={<Detail />}/>
           <Route path='/history-order' element={<HistoryOrder />}/>
           <Route path='/profile' element={<Profile />}/>
-          <Route path='/search/:key' element={<Search />}/>
+          <Route path='/search' element={<Search />}/>
         </Routes>
         <Footer />
       </>
