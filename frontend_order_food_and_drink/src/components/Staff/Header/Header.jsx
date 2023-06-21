@@ -63,7 +63,7 @@ function Header(props) {
                     </div>
                 </div>
 
-                <p>{user && user.firstName}</p>
+                {/* <p>{user && user.firstName}</p> */}
             </div>
         </div>
     );

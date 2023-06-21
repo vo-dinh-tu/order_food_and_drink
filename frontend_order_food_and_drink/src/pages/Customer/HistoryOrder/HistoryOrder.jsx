@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import moment from 'moment';
 import socketIOClient from "socket.io-client";
 const host = "http://localhost:3000";
 
@@ -71,7 +72,7 @@ function HistoryOrder(props) {
                                 <div className="history-order-item completed" key={index}>
                                     <div className="history-order-head">
                                         <label>Mã đơn hàng: <span>#{id}</span> </label>
-                                        <label>Ngày đặt hàng: <span className='order-time'>{updatedAt}</span> </label>
+                                        <label>Ngày đặt hàng: <span className='order-time'>{moment(updatedAt.createdAt).format('DD-MM-YYYY')}</span> </label>
                                     </div>
                                     <div className="history-order-processing">
                                         <div className="row">
@@ -120,7 +121,9 @@ function HistoryOrder(props) {
                                                                 <div className="product-item-info">
                                                                     <label>Tên sản phẩm: <span>{product_name}</span></label>
                                                                     <label>Số lượng: <span>{qty}</span></label>
-                                                                    <label>Giá tiền: <span>{price}</span></label>
+                                                                    <label>Giá tiền: <span>
+                                                                        {price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                                                    </span></label>
                                                                 </div>
                                                             </div>
                                                         </Col>
@@ -131,7 +134,9 @@ function HistoryOrder(props) {
                                         </Row>
                                     </div>
                                     <div className="history-order-footer">
-                                        <label>Tổng thanh toán: <span>{total_price}</span></label>
+                                        <label>Tổng thanh toán: <span>
+                                            {total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                        </span></label>
 
                                         <div className="history-order-status">
                                             { status ===  statusOrder.NEW && (

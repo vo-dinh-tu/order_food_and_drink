@@ -15,9 +15,6 @@
     }
 
     .history-order{
-        &-list{
-        }
-        
         &-item{
             padding: 30px;
             margin-bottom: 30px;
@@ -40,6 +37,7 @@
 
                 span{
                     font-weight: 500;
+                    margin-left: 5px;
                 }
 
                 .order-time{

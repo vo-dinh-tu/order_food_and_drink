@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useNavigate  } from "react-router-dom";
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
 
 import './register.scss';
 
@@ -37,6 +38,8 @@ function Register(props) {
 
             if (response.ok) {
                 navigate('/login');
+            }else{
+                toast.error('Đăng ký thất bại. Vui lòng kiểm tra lại thông tin');
             }
         }
     }
@@ -50,52 +53,58 @@ function Register(props) {
     }
 
     return (
-        <Container className='block-register'>
-            <h2>Đăng ký</h2>
-            <span>Đăng ký và nhảy vào cuộc hành trình thực phẩm!</span>
+        <>
+            <ToastContainer 
+                position="top-right"
+                autoClose={3000}
+            />
+            <Container className='block-register'>
+                <h2>Đăng ký</h2>
+                <span>Đăng ký và nhảy vào cuộc hành trình thực phẩm!</span>
 
-            <form className='register-form' onSubmit={handleSubmit}>
-                <div className='form-group'>
-                    <div className='register-form-input'>
-                        <input type="text" name='first_name' value={formData.first_name} onChange={handleChange} placeholder='Nhập tên của bạn'/>
+                <form className='register-form' onSubmit={handleSubmit}>
+                    <div className='form-group'>
+                        <div className='register-form-input'>
+                            <input type="text" name='first_name' value={formData.first_name} onChange={handleChange} placeholder='Nhập tên của bạn'/>
+                        </div>
+
+                        <div className='register-form-input'>
+                            <input type="text" name='last_name' value={formData.last_name} onChange={handleChange} placeholder='Nhập họ của bạn'/>
+                        </div>
                     </div>
 
                     <div className='register-form-input'>
-                        <input type="text" name='last_name' value={formData.last_name} onChange={handleChange} placeholder='Nhập họ của bạn'/>
+                        <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Nhập email của bạn'/>
                     </div>
-                </div>
 
-                <div className='register-form-input'>
-                    <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Nhập email của bạn'/>
-                </div>
-
-                <div className='register-form-input'>
-                    <input type={ showPassword[0] ? 'text' : 'password' } name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
-                    { showPassword[0] ? <FaEyeSlash onClick={()=>handleTogglePassword(0)} /> : <FaEye onClick={()=>handleTogglePassword(0)} /> }
-                </div>
-
-                <div className='register-form-input'>
-                    <input type={ showPassword[1] ? 'text' : 'password' } name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
-                    { showPassword[1] ? <FaEyeSlash onClick={()=>handleTogglePassword(1)} /> : <FaEye onClick={()=>handleTogglePassword(1)} /> }               
-                </div>
-
-                <div className='form-group'>
                     <div className='register-form-input'>
-                        <input type="text" name='phone' value={formData.phone} onChange={handleChange} placeholder='Nhập số điện thoại'/>
+                        <input type={ showPassword[0] ? 'text' : 'password' } name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                        { showPassword[0] ? <FaEyeSlash onClick={()=>handleTogglePassword(0)} /> : <FaEye onClick={()=>handleTogglePassword(0)} /> }
                     </div>
 
-                    <select name="gender" id="gender" value={formData.gender} onChange={handleChange}>
-                        <option>Giới tính</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                    </select>
-                </div>
+                    <div className='register-form-input'>
+                        <input type={ showPassword[1] ? 'text' : 'password' } name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                        { showPassword[1] ? <FaEyeSlash onClick={()=>handleTogglePassword(1)} /> : <FaEye onClick={()=>handleTogglePassword(1)} /> }               
+                    </div>
 
-                <div className='register-form-btn'>
-                    <input type="submit" className='btn btn-register' value="Đăng ký"/>
-                </div>
-            </form>
-        </Container>
+                    <div className='form-group'>
+                        <div className='register-form-input'>
+                            <input type="text" name='phone' value={formData.phone} onChange={handleChange} placeholder='Nhập số điện thoại'/>
+                        </div>
+
+                        <select name="gender" id="gender" value={formData.gender} onChange={handleChange}>
+                            <option>Giới tính</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+
+                    <div className='register-form-btn'>
+                        <input type="submit" className='btn btn-register' value="Đăng ký"/>
+                    </div>
+                </form>
+            </Container>
+        </>
     );
 }
 

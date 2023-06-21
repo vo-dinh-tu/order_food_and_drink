@@ -15,6 +15,12 @@ const sliders=[
       name:'Đơn hàng',
     },
     {
+      url:'/staff/register',
+    //   icon:<FaTable />,
+      name:'Đăng ký',
+      role: 'ADMIN'
+    },
+    {
       url:'/staff/category',
     //   icon:<FaEdit />,
       name:'Danh mục',

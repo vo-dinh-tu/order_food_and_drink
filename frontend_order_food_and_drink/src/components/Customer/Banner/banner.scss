@@ -3,10 +3,13 @@
 .banner{
     // height: 720px;
     background-color: $green-color;
-    padding: 45px 130px 80px;
-    display: flex;
-    justify-content: space-between;
-    gap: 100px;
+    padding: 45px 0 80px;
+    .container{
+        display: flex;
+        justify-content: space-between;
+        gap: 100px;
+
+    }
     * {
         font-family: 'ABeeZee', sans-serif;
     }

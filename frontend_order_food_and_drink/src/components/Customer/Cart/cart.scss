@@ -27,6 +27,7 @@
     transition: all .5s ease;
     filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.5));
     min-width: 560px;
+    z-index: 10;
 
     &.show{
         transform: translateX(0px);

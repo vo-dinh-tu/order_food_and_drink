@@ -42,7 +42,11 @@ p{
   background-color: $bg-home;
   position: relative;
 }
-
+.container{
+  @media screen and (min-width: 1440px) {
+    max-width: 1440px;
+  }
+}
 .main-content{
   margin-left: 250px;
   transition: all 0.4s ease;

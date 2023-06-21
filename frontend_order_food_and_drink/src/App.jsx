@@ -15,6 +15,7 @@ import Checkout from './pages/Customer/Checkout/Checkout';
 import Profile from './pages/Customer/Profile/Profile';
 import HistoryOrder from './pages/Customer/HistoryOrder/HistoryOrder';
 import Search from './pages/Customer/Search/Search';
+import RegisterStaff from './pages/Staff/Resgiter/Resgister';
 import Staff from './pages/Staff/Home/HomeStaff';
 import Charts from './pages/Staff/Charts/Charts';
 import Category from './pages/Staff/Category/Category';
@@ -67,6 +68,7 @@ function App() {
               <Route path='/staff/order' element={<Order />}/>
               <Route path='/staff/order/detail/:orderId' element={<OrderDetail />}/>
               <Route path='/staff/revenue' element={<Charts />}/>
+              <Route path='/staff/register' element={<RegisterStaff />}/>
             </Routes>
           </div>
         </div>
