@@ -5,7 +5,7 @@ import './footer.scss';
 
 function Footer(props) {
     const location = useLocation();
-    const arrayNoneFooter = ['/search', '/login', '/register'];
+    const arrayNoneFooter = ['/search', '/login', '/register', '/profile', '/checkout'];
     let isNone = false;
     if(arrayNoneFooter.includes(location.pathname)) isNone = true;
 

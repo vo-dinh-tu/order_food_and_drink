@@ -138,13 +138,13 @@ function Checkout(props) {
                                 <label>Tổng tiền hàng</label>
                                 <span>{cart && cart.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                             </div>
-                            <div className="box-group">
+                            {/* <div className="box-group">
                                 <label>Phí ship</label>
                                 <span>2.000 đ</span>
-                            </div>
+                            </div> */}
                             <hr />
                             <div className="box-group">
-                                <label className='title-order'>Tổng tiền hàng</label>
+                                <label className='title-order'>Số tiền thanh toán</label>
                                 <span className='price-order'>{cart && cart.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                             </div>
 
