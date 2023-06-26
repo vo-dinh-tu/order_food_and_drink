@@ -46,6 +46,32 @@
                 font-weight: 500;
                 color: #8898aa;
             }
+
+            .status{
+                padding: 8px 16px;
+                color: $white-color;
+                border-radius: 50px;
+
+                &-completed{
+                    background: $green-color;
+                }
+    
+                &-canceled{
+                    background: $red-color;
+                }
+    
+                &-processing{
+                    background: $yellow-color;
+                }
+
+                &-confirmed{
+                    background: orange;
+                }
+    
+                &-new{
+                    background: $gray-color;
+                }
+            }
         }
 
         .order-status{

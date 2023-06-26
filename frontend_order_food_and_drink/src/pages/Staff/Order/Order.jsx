@@ -37,13 +37,14 @@ function Order(props) {
                             <th>Tên khách hàng</th>
                             <th>Số lượng sản phẩm</th>
                             <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         {orderList && orderList.length > 0 && (
                             orderList.map((orderItem, index)=>{
-                                const {id,first_name, last_name, total_item, total_price} = orderItem;
+                                const {id,first_name, last_name, total_item, total_price, status} = orderItem;
 
                                 return(
                                     <tr key={index}>
@@ -59,6 +60,19 @@ function Order(props) {
                                             <span>
                                                 {total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                             </span>
+                                        </td>
+                                        <td>
+                                            <span className={`status ${status === statusOrder.NEW ? 'status-new' : 
+                                                status === statusOrder.CONFIRMED ? 'status-confirmed' : 
+                                                status === statusOrder.PROCESSING ? 'status-processing' : 
+                                                status === statusOrder.COMPLETED ? 'status-completed' : 'status-canceled'
+                                            }`}>
+                                            { 
+                                                status === statusOrder.NEW ? 'Đơn mới' : 
+                                                status === statusOrder.CONFIRMED ? 'Nhận đơn' : 
+                                                status === statusOrder.PROCESSING ? 'Đang chờ làm' : 
+                                                status === statusOrder.COMPLETED ? 'Hoàn thành' : 'Đã hủy'
+                                            }</span>
                                         </td>
                                         <td>
                                             <Link to={`/staff/order/detail/${id}`}>
