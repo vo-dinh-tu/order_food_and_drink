@@ -7,6 +7,10 @@
 .product-card{
     background-color: $white-color;    
     border-radius: 10px 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
     a{
         text-decoration: none;
@@ -16,6 +20,7 @@
         width: 100%;
         min-height: 280px;
         min-width: 300px;
+        object-fit: contain;
     }
 
     .product-info{

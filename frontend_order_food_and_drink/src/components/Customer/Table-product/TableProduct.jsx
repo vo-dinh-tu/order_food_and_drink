@@ -67,7 +67,7 @@ function TableProduct({cartItems}) {
                             return (
                                 <tr key={index}>
                                     <td>
-                                        <img src={pizza} alt="" />
+                                        <img src={`http://localhost:8080/static/images/${product_image}`} alt="" />
 
                                         <span className='product-name'>{product_name}</span>
                                     </td>
