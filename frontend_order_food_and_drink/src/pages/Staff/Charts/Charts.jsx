@@ -89,17 +89,44 @@ function Charts(props) {
         }
     }
 
-    const fetchExportFile = async () => {
-        const response = await fetch('/api/revenue/exportCSV',{
-            method: 'post',
+    // const fetchExportFile = async () => {
+    //     const response = await fetch('/api/revenue/exportCSV',{
+    //         method: 'post',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ startDate: timerRequest.startDate, endDate: timerRequest.endDate })
+    //     });
+    //     const exportFile = await response.json();
+    //     console.log(exportFile);
+    // }
+    const fetchExportFile = async () => {      
+        try {
+          const response = await fetch('/api/revenue/exportCSV', {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({ startDate: timerRequest.startDate, endDate: timerRequest.endDate })
-        });
-        const exportFile = await response.json();
-        console.log(exportFile);
-    }
+          });
+      
+          if (response.ok) {
+            const blob = await response.blob();
+            console.log(blob);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            console.log(url);
+            a.download = 'export.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+          } else {
+            console.error('Error:', response.status);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
     // const options = {
     //     responsive: true,
