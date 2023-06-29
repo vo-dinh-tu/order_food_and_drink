@@ -5,3 +5,5 @@ export const statusOrder = {
     COMPLETED: 'COMPLETED',
     PROCESSING: 'PROCESSING'
 }
+
+export default statusOrder;
