@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './order.scss';
-import statusOrder from "../../../config/statusOrder.js";
+import { statusOrder } from "../../../config/statusOrder.js";
 
 function Order(props) {
     const [orderList, setOrderList] = useState();

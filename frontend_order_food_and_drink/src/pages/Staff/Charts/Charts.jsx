@@ -89,6 +89,18 @@ function Charts(props) {
         }
     }
 
+    const fetchExportFile = async () => {
+        const response = await fetch('/api/revenue/exportCSV',{
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ startDate: timerRequest.startDate, endDate: timerRequest.endDate })
+        });
+        const exportFile = await response.json();
+        console.log(exportFile);
+    }
+
     // const options = {
     //     responsive: true,
     //     plugins: {
@@ -142,6 +154,7 @@ function Charts(props) {
                             </div>
                         </div>
                     </form>
+                    <button className='btn btn-export' onClick={fetchExportFile}>Xuất file</button>
                     <Chart type='bar' data={data} />
                 </div>
             </div>
