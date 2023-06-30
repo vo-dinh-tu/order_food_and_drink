@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import socketIOClient from "socket.io-client";
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+const host = "http://localhost:3000";
 
 import './order.scss';
 import { statusOrder } from "../../../config/statusOrder.js";
 
 function Order(props) {
     const [orderList, setOrderList] = useState();
+    const [orderSocket, setOrderSocket] = useState([]);
+    const socketRef = useRef();
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     const fetchOrderList = async (accessToken)=>{
         const response = await fetch('/api/order',{
@@ -23,7 +28,17 @@ function Order(props) {
 
     useEffect(()=>{
         if (accessToken) fetchOrderList(accessToken);
+        socketRef.current = socketIOClient.connect(host);
+        socketRef.current.emit('adminConnect', user.id);
+        socketRef.current.on('sendListOrder', listOrder => {
+            console.log(listOrder);
+            setOrderSocket(listOrder);
+        });
     }, []);
+
+    useEffect(()=>{
+        if(accessToken) fetchOrderList(accessToken);
+    },[accessToken, orderSocket]);
 
     return (
         <section className="block-order">
