@@ -31,7 +31,7 @@ function Resgister(props) {
     const handleSubmitResgister = async(event)=>{
         event.preventDefault();
 
-        if(formData){
+        if(formData.password.length >= 6 && formData.confirm_password.length >= 6){
             const response = await fetch('/api/auth/admin/register', {
                 method: 'post',
                 headers: {
@@ -45,6 +45,8 @@ function Resgister(props) {
             }else{
                 toast.error('Đăng ký thất bại. Vui lòng kiểm tra lại thông tin');
             }
+        } else {
+            toast.error('Mật khẩu phải ít nhất là 6 ký tự');
         }
     }
 

@@ -9,7 +9,6 @@ import { fetchInitCart } from '../../../actions/cart';
 
 function Login() {
     const [accessToken, setAccessToken] = useState(null);
-    const [validated, setValidated] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
@@ -47,7 +46,7 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if(validated){
+        if(formData.password.length >= 6){
             const response = await fetch('/api/auth/login', {
                 method: 'post',
                 headers: {
@@ -62,6 +61,8 @@ function Login() {
             }else{
                 toast.error('Đăng nhập thất bại');
             }
+        } else {
+            toast.error('Mật khẩu phải ít nhất là 6 ký tự');
         }
     }
 
@@ -81,11 +82,11 @@ function Login() {
 
                 <form className='login-form' onSubmit={handleSubmit}>
                     <div className='login-form-input'>
-                        <input type="text" name='email' onChange={handleChange} placeholder='Nhập email của bạn'/>
+                        <input type="text" name='email' onChange={handleChange} placeholder='Nhập email của bạn' required/>
                     </div>
 
                     <div className='login-form-input'>
-                        <input type={ showPassword ? 'text' : 'password' } name='password' onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                        <input type={ showPassword ? 'text' : 'password' } name='password' onChange={handleChange} placeholder='Nhập mật khẩu của bạn' required/>
                         { showPassword ? <FaEyeSlash onClick={handleTogglePassword} /> : <FaEye onClick={handleTogglePassword} /> }
                         <input type="hidden" name='page'/>
                     </div>

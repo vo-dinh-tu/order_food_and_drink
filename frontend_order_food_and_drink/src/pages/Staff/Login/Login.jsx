@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate  } from "react-router-dom";
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
 
 import card from "../../../assets/img/illustration_login.png";
 import "./login.scss";
@@ -23,18 +24,24 @@ function Login(props) {
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("/api/auth/login", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(infoLogin),
-    });
-    const data = await response.json();
-
-    if(data){
-      setAccessToken(data.accessToken);
-      sessionStorage.setItem('accessToken', JSON.stringify(data.accessToken));
+    if(infoLogin.password.length >= 6){
+      const response = await fetch("/api/auth/login", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(infoLogin),
+      });
+      const data = await response.json();
+  
+      if(response.ok){
+        setAccessToken(data.accessToken);
+        sessionStorage.setItem('accessToken', JSON.stringify(data.accessToken));
+      } else {
+        toast.error('Đăng nhập thất bại');
+      }
+    } else {
+      toast.error('Mật khẩu phải ít nhất là 6 ký tự');
     }
   };
 
@@ -57,6 +64,10 @@ function Login(props) {
 
   return (
     <section className="login">
+        <ToastContainer 
+            position="top-right"
+            autoClose={3000}
+        />
         <Container fluid>
             <Row>
             <Col xs={4}>
@@ -79,6 +90,7 @@ function Login(props) {
                             onChange={(event) =>
                                 setInfoLogin({ ...infoLogin, email: event.target.value })
                             }
+                            required
                         />
                         <div className="form-group">
                           <input
@@ -87,7 +99,8 @@ function Login(props) {
                               name="password"
                               onChange={(event) =>
                                   setInfoLogin({ ...infoLogin, password: event.target.value })
-                              }                    
+                              }  
+                              required                  
                               />
                               { showPassword ? <FaEyeSlash onClick={handleTogglePassword} /> : <FaEye onClick={handleTogglePassword} /> }
                         </div>

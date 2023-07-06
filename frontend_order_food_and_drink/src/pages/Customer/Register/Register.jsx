@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import './register.scss';
 
 function Register(props) {
-    const [validated, setValidated] = useState(true);
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -27,7 +26,7 @@ function Register(props) {
     const handleSubmit = async (event) =>{
         event.preventDefault();
 
-        if(validated){
+        if(formData.password.length >= 6 && formData.confirm_password.length >= 6){
             const response = await fetch('/api/auth/register', {
                 method: 'post',
                 headers: {
@@ -41,6 +40,8 @@ function Register(props) {
             }else{
                 toast.error('Đăng ký thất bại. Vui lòng kiểm tra lại thông tin');
             }
+        } else {
+            toast.error('Mật khẩu phải ít nhất là 6 ký tự');
         }
     }
 
@@ -65,25 +66,25 @@ function Register(props) {
                 <form className='register-form' onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <div className='register-form-input'>
-                            <input type="text" name='first_name' value={formData.first_name} onChange={handleChange} placeholder='Nhập tên của bạn'/>
+                            <input type="text" name='first_name' value={formData.first_name} onChange={handleChange} placeholder='Nhập tên của bạn' required/>
                         </div>
 
                         <div className='register-form-input'>
-                            <input type="text" name='last_name' value={formData.last_name} onChange={handleChange} placeholder='Nhập họ của bạn'/>
+                            <input type="text" name='last_name' value={formData.last_name} onChange={handleChange} placeholder='Nhập họ của bạn' required/>
                         </div>
                     </div>
 
                     <div className='register-form-input'>
-                        <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Nhập email của bạn'/>
+                        <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Nhập email của bạn' required/>
                     </div>
 
                     <div className='register-form-input'>
-                        <input type={ showPassword[0] ? 'text' : 'password' } name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                        <input type={ showPassword[0] ? 'text' : 'password' } name='password' value={formData.password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn' required/>
                         { showPassword[0] ? <FaEyeSlash onClick={()=>handleTogglePassword(0)} /> : <FaEye onClick={()=>handleTogglePassword(0)} /> }
                     </div>
 
                     <div className='register-form-input'>
-                        <input type={ showPassword[1] ? 'text' : 'password' } name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn'/>
+                        <input type={ showPassword[1] ? 'text' : 'password' } name='confirm_password' value={formData.confirm_password} onChange={handleChange} placeholder='Nhập mật khẩu của bạn' required/>
                         { showPassword[1] ? <FaEyeSlash onClick={()=>handleTogglePassword(1)} /> : <FaEye onClick={()=>handleTogglePassword(1)} /> }               
                     </div>
 
