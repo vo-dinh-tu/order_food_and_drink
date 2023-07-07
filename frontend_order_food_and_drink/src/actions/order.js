@@ -36,3 +36,14 @@ export const fetchUpdateStatusOrder = async (orderId, accessToken, status)=>{
     });
     return response;
 }
+
+export const fetchUpdateIsPayment = async (orderId, payment)=>{
+    const response = await fetch(`/api/order/status/payment`,{
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderId: orderId, isPayment: payment})
+    });
+    return response;
+}

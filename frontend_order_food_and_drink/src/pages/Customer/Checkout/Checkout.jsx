@@ -10,6 +10,7 @@ import { fetchGetCart } from '../../../actions/cart';
 import {setCartItems, setCartStore} from '../../../actions/user';
 import { fetchOrder, fetchPayment } from '../../../actions/order';
 import './checkout.scss';
+import { fetchUpdateIsPayment } from '../../../actions/order';
 
 function Checkout(props) {
     const [paymentMethod, setPaymentMethod] = useState('');
@@ -65,9 +66,18 @@ function Checkout(props) {
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
+        
         const myParam = urlParams.get('vnp_TransactionStatus');
+        const orderInfo = urlParams.get('vnp_OrderInfo');
+        var arrOId = '';
+        if (orderInfo) {
+            arrOId = orderInfo.split(':');
+        }
 
-        if(myParam === '00') return setShowPopup(true);
+        if(myParam === '00'){ 
+            fetchUpdateIsPayment(arrOId[1], true);
+            return setShowPopup(true);
+        }
     }, []);
 
     return (

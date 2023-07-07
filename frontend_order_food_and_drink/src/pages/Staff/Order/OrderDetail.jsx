@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
 import moment from 'moment';
 
-import { fetchUpdateStatusOrder } from '../../../actions/order';
+import { fetchUpdateIsPayment, fetchUpdateStatusOrder } from '../../../actions/order';
 import { statusOrder } from '../../../config/statusOrder';
 
 function OrderDetail(props) {
     const [orderDetail, setOrderDetail] = useState(null);
     const [orderStatus, setOrderStatus] = useState(null);
+    const [orderPayment, setOrderPayment] = useState(null);
     const [orderItems, setOrderItems] = useState([]);
     const { orderId } = useParams();
     const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
@@ -16,7 +17,7 @@ function OrderDetail(props) {
     if(orderId && accessToken){
         useEffect(()=>{
             fetchOrderDetail(orderId, accessToken);
-        },[orderId, accessToken,  orderStatus]);
+        },[orderId, accessToken,  orderStatus, orderPayment]);
     }
 
     const fetchOrderDetail = async (orderId, accessToken)=>{
@@ -66,6 +67,15 @@ function OrderDetail(props) {
         }
     }
 
+    const handlePayment = async (orderId) => {
+        if (orderId) {
+            var result = await fetchUpdateIsPayment(orderId, true);
+            if (result.status === 200) {
+                setOrderPayment(true);
+            }
+        }
+    }
+
     return (
         <div className='order__detail'>
             <h3 className="title-admin">Đơn hàng: #{orderDetail && orderDetail.id}</h3>
@@ -103,6 +113,10 @@ function OrderDetail(props) {
                             Tổng thanh toán:
                             <span>{orderDetail && orderDetail.total_price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                         </label>
+                        <label>
+                            Trạng thái thanh toán:
+                            <span>{orderDetail && orderDetail.is_payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</span>
+                        </label>
                     </div>
                     <div className="order__detail-group-btn">
                         <button disabled={(orderDetail && orderDetail.status !== statusOrder.NEW)} className="btn btn-confirm"
@@ -113,6 +127,9 @@ function OrderDetail(props) {
 
                         <button disabled={orderDetail && orderDetail.status !== statusOrder.PROCESSING} className="btn btn-complete"
                             onClick={()=>handleCompleteOrder(orderDetail && orderDetail.id)}>Hoàn thành</button>
+                            
+                        <button hidden={orderDetail && orderDetail.is_payment} className="btn"
+                            onClick={()=>handlePayment(orderDetail && orderDetail.id)}>Đã thanh toán</button>
                     </div>
                 </div>
             </div>
