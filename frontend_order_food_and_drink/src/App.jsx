@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import './App.scss';
 import Header from './components/Customer/Header/Header';
@@ -27,6 +27,10 @@ import ProductUpdate from './pages/Staff/Product/ProductUpdate';
 import LoginStaff from './pages/Staff/Login/Login';
 import Order from './pages/Staff/Order/Order';
 import OrderDetail from './pages/Staff/Order/OrderDetail';
+import SupplyManagement from './pages/Staff/SupplyManagement/SupplyManagement';
+import SupplyAdd from './pages/Staff/SupplyManagement/SupplyAdd';
+import SupplyUpdate from './pages/Staff/SupplyManagement/SupplyUpdate';
+import StaffManagement from './pages/Staff/StaffManagement/StaffManagement';
 
 function App() {
   const location = useLocation();
@@ -34,14 +38,14 @@ function App() {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const pathsCanDisplayBanner = ['/'];
 
-  useEffect(()=>{
-    if(location.pathname.includes('/staff') && user === null){
+  useEffect(() => {
+    if (location.pathname.includes('/staff') && user === null) {
       navigate('/staff/login');
     }
-  },[])
+  }, [])
 
-  if(location.pathname.includes('/staff/login')){
-    return(
+  if (location.pathname.includes('/staff/login')) {
+    return (
       <>
         <Routes>
           <Route path='/staff/login' element={<LoginStaff />} />
@@ -50,50 +54,54 @@ function App() {
     )
   }
 
-  if(location.pathname.includes('/staff')){
+  if (location.pathname.includes('/staff')) {
     return (
       <>
-      <Slider />
+        <Slider />
         <div className="main-content">
           <HeaderStaff />
           <div className="block-content">
             <Routes>
               <Route path='/staff' element={<Staff />} />
-              <Route path='/staff/category' element={<Category />}/>
-              <Route path='/staff/category/add' element={<CategoryAdd />}/>
-              <Route path='/staff/category/update/:id' element={<CategoryUpdate />}/>
-              <Route path='/staff/product' element={<Product />}/>
-              <Route path='/staff/product/add' element={<ProductAdd />}/>
-              <Route path='/staff/product/update/:id' element={<ProductUpdate />}/>
-              <Route path='/staff/order' element={<Order />}/>
-              <Route path='/staff/order/detail/:orderId' element={<OrderDetail />}/>
-              <Route path='/staff/revenue' element={<Charts />}/>
-              <Route path='/staff/register' element={<RegisterStaff />}/>
+              <Route path='/staff/category' element={<Category />} />
+              <Route path='/staff/category/add' element={<CategoryAdd />} />
+              <Route path='/staff/category/update/:id' element={<CategoryUpdate />} />
+              <Route path='/staff/product' element={<Product />} />
+              <Route path='/staff/product/add' element={<ProductAdd />} />
+              <Route path='/staff/product/update/:id' element={<ProductUpdate />} />
+              <Route path='/staff/order' element={<Order />} />
+              <Route path='/staff/order/detail/:orderId' element={<OrderDetail />} />
+              <Route path='/staff/revenue' element={<Charts />} />
+              <Route path='/staff/register' element={<RegisterStaff />} />
+              <Route path='/staff/management' element={<StaffManagement />} />
+              <Route path='/staff/supply' element={<SupplyManagement />} />
+              <Route path='/staff/supply/add' element={<SupplyAdd />} />
+              <Route path='/staff/supply/update/:id' element={<SupplyUpdate />} />
             </Routes>
           </div>
         </div>
-    </>
+      </>
     )
   }
 
-  if(location.pathname.includes('/')){
-    return(
+  if (location.pathname.includes('/')) {
+    return (
       <>
         <Header />
-        <Banner isDisplay={pathsCanDisplayBanner.includes(location.pathname)}/>
+        <Banner isDisplay={pathsCanDisplayBanner.includes(location.pathname)} />
         <Routes>
-          <Route path='/login' element={<Login />}/>
-          <Route path='/register' element={<Register />}/>
-          <Route path='/' element={<Home />}/>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/' element={<Home />} />
           <Route path='/checkout' element={<Checkout />} />
-          <Route path='/detail/:id' element={<Detail />}/>
-          <Route path='/history-order' element={<HistoryOrder />}/>
-          <Route path='/profile' element={<Profile />}/>
-          <Route path='/search' element={<Search />}/>
+          <Route path='/detail/:id' element={<Detail />} />
+          <Route path='/history-order' element={<HistoryOrder />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/search' element={<Search />} />
         </Routes>
         <Footer />
       </>
-    
+
     )
   }
 }

@@ -14,7 +14,7 @@ import {
     BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-  
+
 ChartJS.register(
     LinearScale,
     CategoryScale,
@@ -29,7 +29,7 @@ ChartJS.register(
 import './chart.scss';
 
 function Charts(props) {
-    const [timerRequest, setTimerRequest] = useState({startDate: '', endDate: '', typeRevenue: ''});
+    const [timerRequest, setTimerRequest] = useState({ startDate: '', endDate: '', typeRevenue: '' });
     const [timer, setTimer] = useState([]);
     const [totalRevenue, setTotalRevenue] = useState([]);
 
@@ -44,6 +44,13 @@ function Charts(props) {
                 type: 'bar'
             },
             {
+                label: 'Chi',
+                data: totalRevenue || [],
+                backgroundColor: 'rgba(26, 192, 215, 1)',
+                borderWidth: .5,
+                type: 'bar'
+            },
+            {
                 label: 'Line',
                 fill: false,
                 data: totalRevenue || [],
@@ -54,8 +61,8 @@ function Charts(props) {
             },
         ],
     };
-    
-    const fetchStatistical = async(event)=>{
+
+    const fetchStatistical = async (event) => {
         event.preventDefault();
 
         const response = await fetch('/api/revenue/calc', {
@@ -67,14 +74,14 @@ function Charts(props) {
         })
         const revenue = await response.json();
 
-        if(revenue && revenue.result.length > 0){
+        if (revenue && revenue.result.length > 0) {
 
             const timerNew = revenue.result.map((item) => {
                 let timeUnit;
-                if(revenue.typeRevenue === 'Date'){
+                if (revenue.typeRevenue === 'Date') {
                     timeUnit = new Date(item[0]).getDate();
                     return 'Ngày ' + timeUnit;
-                } else if(revenue.typeRevenue === 'Month') {
+                } else if (revenue.typeRevenue === 'Month') {
                     timeUnit = new Date(item[0]).getMonth();
                     return 'Tháng ' + timeUnit;
                 } else {
@@ -100,33 +107,33 @@ function Charts(props) {
     //     const exportFile = await response.json();
     //     console.log(exportFile);
     // }
-    const fetchExportFile = async () => {      
+    const fetchExportFile = async () => {
         try {
-          const response = await fetch('/api/revenue/exportCSV', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ startDate: timerRequest.startDate, endDate: timerRequest.endDate })
-          });
-      
-          if (response.ok) {
-            const blob = await response.blob();
-            console.log(blob);
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            console.log(url);
-            a.download = 'export.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-          } else {
-            console.error('Error:', response.status);
-          }
+            const response = await fetch('/api/revenue/exportCSV', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ startDate: timerRequest.startDate, endDate: timerRequest.endDate })
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                console.log(blob);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                console.log(url);
+                a.download = 'export.csv';
+                a.click();
+                URL.revokeObjectURL(url);
+            } else {
+                console.error('Error:', response.status);
+            }
         } catch (error) {
-          console.error('Error:', error);
+            console.error('Error:', error);
         }
-      };
+    };
 
     // const options = {
     //     responsive: true,
@@ -147,20 +154,20 @@ function Charts(props) {
                 <h3 className="title-admin">Thống kê doanh thu</h3>
 
                 <div className='chart-box'>
-                    <form onSubmit={(event)=>fetchStatistical(event)}>
+                    <form onSubmit={(event) => fetchStatistical(event)}>
                         <div className='chart-time'>
                             <div className='chart-time__group'>
                                 <Form.Group className='form-group'>
                                     <span>Thời gian bắt đầu: </span>
-                                    <Form.Control onChange={(event)=>setTimerRequest({...timerRequest, startDate: event.target.value})} 
-                                        type="date" name='startDate' 
+                                    <Form.Control onChange={(event) => setTimerRequest({ ...timerRequest, startDate: event.target.value })}
+                                        type="date" name='startDate'
                                         required
                                     />
                                 </Form.Group>
 
                                 <Form.Group className='form-group'>
                                     <span>Thời gian kết thúc: </span>
-                                    <Form.Control onChange={(event)=>setTimerRequest({...timerRequest, endDate: event.target.value})} 
+                                    <Form.Control onChange={(event) => setTimerRequest({ ...timerRequest, endDate: event.target.value })}
                                         type="date" name='endDate' required
                                     />
                                 </Form.Group>
@@ -169,7 +176,7 @@ function Charts(props) {
                             <div className='chart-time__group'>
                                 <Form.Group className='form-group'>
                                     <span>Loại thời gian: </span>
-                                    <Form.Select onChange={(event)=>setTimerRequest({...timerRequest, typeRevenue: event.target.value})} 
+                                    <Form.Select onChange={(event) => setTimerRequest({ ...timerRequest, typeRevenue: event.target.value })}
                                         name="typeTime" required>
                                         <option value="">Chọn thời gian</option>
                                         <option value="Date">Ngày</option>
