@@ -32,6 +32,7 @@ function Charts(props) {
     const [timerRequest, setTimerRequest] = useState({ startDate: '', endDate: '', typeRevenue: '' });
     const [timer, setTimer] = useState([]);
     const [totalRevenue, setTotalRevenue] = useState([]);
+    const [totalExpenditure, setTotalExpenditure] = useState([]);
 
     const data = {
         labels: timer || [],
@@ -45,7 +46,7 @@ function Charts(props) {
             },
             {
                 label: 'Chi',
-                data: totalRevenue || [],
+                data: totalExpenditure || [],
                 backgroundColor: 'rgba(26, 192, 215, 1)',
                 borderWidth: .5,
                 type: 'bar'
@@ -92,7 +93,9 @@ function Charts(props) {
             setTimer(timerNew);
 
             const totalRevenueNew = revenue.result.map((item) => item[1]);
+            const totalExpenditure = revenue.result.map((item) => item[2]); // total expenditure
             setTotalRevenue(totalRevenueNew);
+            setTotalExpenditure(totalExpenditure);
         }
     }
 

@@ -9,13 +9,38 @@ import { MdDelete } from 'react-icons/md';
 import './staffManagement.scss'
 function StaffManagement(props) {
     const [supplyList, setStaffList] = useState([])
+    const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
 
     const fetchListStaff = async () => {
-        const response = await fetch('/api/supply')
+        const response = await fetch('/api/admin/staff', {
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+        )
         const data = await response.json()
         if (data && data.length > 0) {
             setStaffList(data)
         }
+    }
+    const handleDeleteItem = async (id) => {
+        const result = confirm('Bạn có muốn xóa');
+
+        if (result && id) {
+            handleDelete(id);
+            fetchListStaff();
+        }
+    }
+    const handleDelete = async (id) => {
+        const response = await fetch(`/api/admin/staff/${id}`, {
+            method: 'delete',
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        const data = await response.json()
+        return data
     }
 
     useEffect(() => {
@@ -34,25 +59,23 @@ function StaffManagement(props) {
                             <th>STT</th>
                             <th>Tên nhân viên</th>
                             <th>Vị trí</th>
-                            <th>Ngày sinh</th>
-                            <th>Địa chỉ</th>
+                            <th>Giới tính</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         {supplyList && supplyList.length > 0 && (
                             supplyList.map((item, index) => {
-                                const { id, name, price, priceSale, quantity, is_active } = item;
+                                const { id, last_name, first_name, role, gender, is_active } = item;
 
                                 return (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{name}</td>
-                                        <td>{price}</td>
-                                        <td>{priceSale}</td>
-                                        <td>{quantity}</td>
+                                        <td>{last_name + " " + first_name}</td>
+                                        <td>{role}</td>
+                                        <td>{gender}</td>
                                         <td>
-                                            <MdDelete onClick={() => { }} className='icon-delete' />
+                                            <MdDelete onClick={() => handleDeleteItem(id)} className='icon-delete' />
                                         </td>
                                     </tr>
                                 )
