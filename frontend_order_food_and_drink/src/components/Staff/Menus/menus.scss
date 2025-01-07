@@ -1,7 +1,7 @@
 @use '../../../scss/' as *;
 
 .slider__menu{
-    width: 250px;
+    width: 300px;
 
     &-list{
         padding-left: 0;
@@ -12,6 +12,8 @@
         list-style: none;
         padding: 10px 24px;
         height:50px;
+        border-bottom: 1px solid #dee2e6;
+        margin-top: 20px;
     }
 
     &-link{
