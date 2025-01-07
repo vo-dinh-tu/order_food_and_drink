@@ -61,17 +61,15 @@ function SupplyManagement(props) {
                             <th>Tên thực phẩm</th>
                             <th>Hình ảnh</th>
                             <th>Giá nhập</th>
-                            <th>Giá bán</th>
                             <th>Số lượng </th>
-                            <th>Đã xuất</th>
+                            <th>Tổng giá </th>
                             <th>Hành động</th>
-                            <th>Xuất</th>
                         </tr>
                     </thead>
                     <tbody>
                         {supplyList && supplyList.length > 0 && (
                             supplyList.map((item, index) => {
-                                const { id, name, image, price, priceSale, quantity, exports, is_active } = item;
+                                const { id, name, image, price, priceSale, quantity, totalPrice, exports, is_active } = item;
 
                                 return (
                                     <tr key={index}>
@@ -81,15 +79,11 @@ function SupplyManagement(props) {
                                             <img src={`http://localhost:8080/static/images/${image}`} alt="" />
                                         </td>
                                         <td>{price}</td>
-                                        <td>{priceSale}</td>
                                         <td>{quantity}</td>
-                                        <td>{exports}</td>
+                                        <td>{totalPrice}</td>
                                         <td>
                                             <Link to={`/staff/supply/update/${id}`}><FaRegEdit className='icon-update' /></Link>
                                             <MdDelete onClick={() => handleDeleteItem(id)} className='icon-delete' />
-                                        </td>
-                                        <td>
-                                            <FaFileExport onClick={() => handleExport(id)} className='icon-export' />
                                         </td>
                                     </tr>
                                 )

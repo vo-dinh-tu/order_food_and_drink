@@ -7,8 +7,8 @@ function SupplyAdd(props) {
         name: '',
         export: '',
         price: 0,
-        priceSale: 0,
         quantity: 0,
+        totalPrice: 0,
         image: null,
         type: 1
     });
@@ -23,8 +23,8 @@ function SupplyAdd(props) {
         const formData = new FormData();
         formData.append('name', productAdd.name);
         formData.append('price', productAdd.price);
-        formData.append('priceSale', productAdd.priceSale);
         formData.append('quantity', productAdd.quantity);
+        formData.append('totalPrice', productAdd.totalPrice);
         formData.append('image', productAdd.image);
         const response = await fetch('/api/supply', {
             method: 'post',
@@ -76,22 +76,22 @@ function SupplyAdd(props) {
                     </Form.Group>
 
                     <Form.Group className='mb-4'>
-                        <Form.Label>Giá bán</Form.Label>
-                        <Form.Control
-                            // required
-                            onChange={(event) => setProductAdd({ ...productAdd, priceSale: event.target.value })}
-                            type="number"
-                            name="priceSale"
-                        />
-                    </Form.Group>
-
-                    <Form.Group className='mb-4'>
                         <Form.Label>Số lượng</Form.Label>
                         <Form.Control
                             // required
                             onChange={(event) => setProductAdd({ ...productAdd, quantity: event.target.value })}
                             type="number"
                             name="quantity"
+                        />
+                    </Form.Group>
+
+                    <Form.Group className='mb-4'>
+                        <Form.Label>Tổng giá</Form.Label>
+                        <Form.Control
+                            // required
+                            onChange={(event) => setProductAdd({ ...productAdd, totalPrice: event.target.value })}
+                            type="number"
+                            name="totalPrice"
                         />
                     </Form.Group>
 

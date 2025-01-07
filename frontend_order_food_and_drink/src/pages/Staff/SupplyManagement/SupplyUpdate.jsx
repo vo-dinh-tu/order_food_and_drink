@@ -28,7 +28,7 @@ function SupplyUpdate(props) {
         const formData = new FormData();
         formData.append('name', supplyItem.name);
         formData.append('price', supplyItem.price);
-        formData.append('priceSale', supplyItem.priceSale);
+        formData.append('totalPrice', supplyItem.totalPrice);
         formData.append('quantity', supplyItem.quantity);
         formData.append('image', supplyItem.image);
         const response = await fetch(`/api/supply/${id}`, {
@@ -83,17 +83,6 @@ function SupplyUpdate(props) {
                     </Form.Group>
 
                     <Form.Group className='mb-4'>
-                        <Form.Label>Giá bán</Form.Label>
-                        <Form.Control
-                            // required
-                            onChange={(event) => setSupplyItem({ ...supplyItem, priceSale: event.target.value })}
-                            type="number"
-                            name="priceSale"
-                            value={supplyItem?.priceSale}
-                        />
-                    </Form.Group>
-
-                    <Form.Group className='mb-4'>
                         <Form.Label>Số lượng</Form.Label>
                         <Form.Control
                             // required
@@ -101,6 +90,17 @@ function SupplyUpdate(props) {
                             type="number"
                             name="quantity"
                             value={supplyItem?.quantity}
+                        />
+                    </Form.Group>
+
+                    <Form.Group className='mb-4'>
+                        <Form.Label>Tổng giá</Form.Label>
+                        <Form.Control
+                            // required
+                            onChange={(event) => setSupplyItem({ ...supplyItem, totalPrice: event.target.value })}
+                            type="number"
+                            name="totalPrice"
+                            value={supplyItem?.totalPrice}
                         />
                     </Form.Group>
 
