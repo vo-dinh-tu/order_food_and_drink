@@ -38,7 +38,7 @@ function Footer(props) {
                 </div>
                 <hr />
                 <div className='footer__produce'>
-                    Copyright @2022 TBayEAT
+                    TBayEAT
                 </div>
             </Container>
         </div>
