@@ -41,6 +41,7 @@ function ProductUpdate(props) {
         formData.append("image", productItem.image);
         formData.append("detail", productItem.detail);
         formData.append("price", productItem.price);
+        formData.append("is_active", productItem.is_active);
 
         const response = await fetch(`/api/product/${id}`,{
             method: 'put',
@@ -106,6 +107,16 @@ function ProductUpdate(props) {
                                 name="image"
                                 onChange={(event)=> setProductItem({...productItem, image: event.target.files[0]})}                              
                             />
+                        </Form.Group>
+
+                        <Form.Group className="position-relative mb-4">
+                            <Form.Label>Trạng thái</Form.Label>
+                            <Form.Select aria-label="Default select example"
+                                onChange={(event)=> setProductItem({...productItem, is_active: event.target.value})}
+                            >
+                                <option selected={!productItem.is_active} value={false}>Inactive</option>
+                                <option selected={productItem.is_active} value={true}>Active</option>
+                            </Form.Select>
                         </Form.Group>
 
                         <Form.Group className="position-relative mb-4">
