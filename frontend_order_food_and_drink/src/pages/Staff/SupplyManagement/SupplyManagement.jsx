@@ -5,6 +5,7 @@ import { Table } from 'react-bootstrap'
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { FaFileExport } from "react-icons/fa6";
+import moment from 'moment';
 import './supplyManagement.scss'
 function SupplyManagement(props) {
     const [supplyList, setSupplyList] = useState([])
@@ -63,13 +64,14 @@ function SupplyManagement(props) {
                             <th>Giá nhập</th>
                             <th>Số lượng </th>
                             <th>Tổng giá </th>
+                            <th>Ngày tạo </th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         {supplyList && supplyList.length > 0 && (
                             supplyList.map((item, index) => {
-                                const { id, name, image, price, priceSale, quantity, totalPrice, exports, is_active } = item;
+                                const { id, name, image, price, priceSale, quantity, totalPrice, exports, is_active, createdAt } = item;
 
                                 return (
                                     <tr key={index}>
@@ -81,6 +83,7 @@ function SupplyManagement(props) {
                                         <td>{price}</td>
                                         <td>{quantity}</td>
                                         <td>{totalPrice}</td>
+                                        <td>{moment(createdAt).format('DD-MM-YYYY')}</td>
                                         <td>
                                             <Link to={`/staff/supply/update/${id}`}><FaRegEdit className='icon-update' /></Link>
                                             <MdDelete onClick={() => handleDeleteItem(id)} className='icon-delete' />
